@@ -1,14 +1,33 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
+import { ChangeEvent, KeyboardEvent, useState } from "react";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
-  function showAlert() {
-    alert("클릭했음ㅎ");
+  const router = useRouter();
+
+  const [item, setItem] = useState<string>("");
+  const [itemList, setItemList] = useState<string[]>([]);
+  function handleAdd() {
+    // If nothing is
+    if (item.trim() === "") return;
+    setItemList((prev) => [...prev, item]); // spread
+    setItem("");
   }
 
   function handleSubmit() {
-    confirm("할까?");
+    router.push({
+      pathname: "/result",
+      query: { itemList: itemList },
+    });
+  }
+
+  function handleOnItemInputChange(event: ChangeEvent<HTMLInputElement>) {
+    const value = event.target.value;
+    setItem(value);
+  }
+
+  function handleOnEnterPressed(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key == "Enter") handleAdd();
   }
 
   return (
@@ -20,16 +39,26 @@ const Home: NextPage = () => {
       <div className="flex gap-y-4 bg-yellow-500 flex-col p-10 w-2/3 h-min">
         {/* 인풋박스 */}
         <div className="flex flex-row w-full">
-          <input className="w-2/3 mr-4" type="text" />
+          <input
+            className="w-2/3 mr-4 px-4"
+            type="text"
+            value={item}
+            onChange={handleOnItemInputChange}
+            onKeyPress={handleOnEnterPressed}
+          />
           <input
             className="bg-white px-4 py-2 cursor-pointer w-1/3"
-            onClick={showAlert}
+            onClick={handleAdd}
             type="button"
             value="추가"
           />
         </div>
         {/* 이름목록박스 */}
-        <div className="w-full min-h-[200px] bg-white "></div>
+        <div className="w-full h-[200px] overflow-y-auto bg-white">
+          {itemList.map((item, index) => {
+            return <div key={index}>{item}</div>;
+          })}
+        </div>
         <input
           className="w-full px-4 py-2 cursor-pointer bg-lime-400 rounded-md hover:bg-lime-500"
           onClick={handleSubmit}
