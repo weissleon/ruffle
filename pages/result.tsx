@@ -37,11 +37,11 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   const itemList: ItemList =
     query.itemList && typeof query.itemList === "string"
-      ? JSON.parse(query.itemList)
-      : {};
+      ? new Map(Object.entries(JSON.parse(query.itemList)))
+      : new Map();
 
   // ! TEMPORARY: Generating pickCount. In the future, the pickCount will be received as a query parameter.
-  const pickCount = Math.ceil(Object.keys(itemList).length / 2);
+  const pickCount = Math.ceil(itemList.size / 2);
 
   // Generate winnerList
   const winnerList = generateWinnerList(itemList, pickCount);
