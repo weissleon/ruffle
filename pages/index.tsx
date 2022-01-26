@@ -1,23 +1,41 @@
 import type { NextPage } from "next";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { useRouter } from "next/router";
+import { ItemList } from "../lib/helper";
 
 const Home: NextPage = () => {
+  // Create router
   const router = useRouter();
 
+  // A state to store current input
   const [item, setItem] = useState<string>("");
-  const [itemList, setItemList] = useState<string[]>([]);
+
+  // A state to store item list
+  // It is implemented with Map so that frequencies are also stored
+  const [itemList, setItemList] = useState<ItemList>({});
+
+  // * HANDLERS
   function handleAdd() {
-    // If nothing is
+    // If nothing is entered, do nothing
     if (item.trim() === "") return;
-    setItemList((prev) => [...prev, item]); // spread
+
+    // Update itemList
+    setItemList((prev) => {
+      if (Object.keys(itemList).indexOf(item) >= 0)
+        return { ...prev, [item]: prev[item] + 1 };
+      return { ...prev, [item]: 1 };
+    });
+
+    // Clean up textField
     setItem("");
   }
 
   function handleSubmit() {
+    if (Object.keys(itemList).length == 0) return;
+
     router.push({
       pathname: "/result",
-      query: { itemList: itemList },
+      query: { itemList: JSON.stringify(itemList) },
     });
   }
 
@@ -27,16 +45,38 @@ const Home: NextPage = () => {
   }
 
   function handleOnEnterPressed(event: KeyboardEvent<HTMLInputElement>) {
+    // Add item when ENTER key is clicked.
     if (event.key == "Enter") handleAdd();
   }
 
+  function handleOnRemoveItem(item: string) {
+    setItemList((prev) => {
+      const { [item]: removedItem, ...remainingItemList } = prev;
+      return remainingItemList;
+    });
+  }
+
+  function handleOnFreqIncrement(item: string) {
+    setItemList((prev) => {
+      return { ...prev, [item]: prev[item] + 1 };
+    });
+  }
+
+  function handleOnFreqDecrement(item: string) {
+    setItemList((prev) => {
+      if (prev[item] != 1) return { ...prev, [item]: prev[item] - 1 };
+
+      const { [item]: removedItem, ...remainingItemList } = prev;
+      return remainingItemList;
+    });
+  }
+
   return (
-    //
     // 젤 큰 박스
     <div className="justify-center flex h-screen items-center ">
       {/* screen : 화면 전체 / 내용물 사이즈(화면높이만큼) */}
       {/* 컨텐트박스 */}
-      <div className="flex gap-y-4 bg-yellow-500 flex-col p-10 w-2/3 h-min">
+      <div className="flex gap-y-4 bg-yellow-500 flex-col p-10 w-2/3 max-w-md h-min">
         {/* 인풋박스 */}
         <div className="flex flex-row w-full">
           <input
@@ -54,9 +94,45 @@ const Home: NextPage = () => {
           />
         </div>
         {/* 이름목록박스 */}
-        <div className="w-full h-[200px] overflow-y-auto bg-white">
-          {itemList.map((item, index) => {
-            return <div key={index}>{item}</div>;
+        <div className="w-full h-[200px] overflow-y-auto py-2 flex flex-col gap-y-2 bg-white">
+          {Object.keys(itemList).map((item) => {
+            return (
+              <div
+                className="flex flex-row justify-between px-4 items-center"
+                key={item}
+              >
+                <div>{item}</div>
+                <div className="flex flex-row gap-2 items-center">
+                  <input
+                    className="cursor-pointer border border-transparent rounded-full hover:border-slate-200 active:border-slate-300 w-6 h-6"
+                    type="button"
+                    value="-"
+                    onClick={() => {
+                      handleOnFreqDecrement(item);
+                    }}
+                  />
+                  <div>
+                    <span className="align-middle">{itemList[item]}</span>
+                  </div>
+                  <input
+                    className="cursor-pointer border border-transparent rounded-full hover:border-slate-200 active:border-slate-300 w-6 h-6"
+                    type="button"
+                    value="+"
+                    onClick={() => {
+                      handleOnFreqIncrement(item);
+                    }}
+                  />
+                </div>
+                <div
+                  onClick={() => {
+                    handleOnRemoveItem(item);
+                  }}
+                  className="bg-red-500 text-white cursor-pointer flex justify-center items-center text-center shadow-sm text-xs rounded-full w-6 h-6"
+                >
+                  <span>X</span>
+                </div>
+              </div>
+            );
           })}
         </div>
         <input
