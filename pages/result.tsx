@@ -8,11 +8,22 @@ const Result: NextPage<Props> = ({ winnerList }) => {
   return (
     <>
       <div>
-        <h1>추첨 결과</h1>
-        <div>
-          {winnerList.map((item, index) => (
-            <div key={index}>{item}</div>
-          ))}
+        {/* 큰박스 */}
+        <div className="justify-center flex h-screen items-center">
+          {/* result box */}
+          <div className="flex-col">
+            <h1 className="flex-col w-full bg-green-700 text-center">
+              추첨 결과
+            </h1>
+            {/* result */}
+            <div className="w-full bg-yellow-500 text-center">
+              {winnerList.map((item, index) => (
+                <div className="w-48" key={index}>
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </>
