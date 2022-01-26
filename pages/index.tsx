@@ -83,7 +83,7 @@ const Home: NextPage = () => {
         <h1 className="font-bold text-xl">RUFFLE</h1>
       </div>
       {/* 컨텐트박스 */}
-      <div className="flex gap-y-4 rounded-md border-2 border-slate-100 flex-col p-10 max-w-md w-2/3 h-min shadow-md shadow-slate-200">
+      <div className="flex gap-y-4 rounded-md border-2 border-slate-100 flex-col p-10 max-w-md w-2/3 h-min shadow-md shadow-slate-200 bg-slate-200">
         {/* 인풋박스 */}
         <div className="flex flex-row w-full">
           <input
@@ -105,11 +105,11 @@ const Home: NextPage = () => {
           {Object.keys(itemList).map((item) => {
             return (
               <div
-                className="flex flex-row justify-between px-4 items-center"
+                className="grid grid-cols-3 grid-flow-col px-4 items-center"
                 key={item}
               >
-                <div>{item}</div>
-                <div className="flex flex-row gap-2 items-center">
+                <div className="justify-self-start">{item}</div>
+                <div className="justify-self-center flex flex-row gap-2 items-center">
                   <input
                     className="cursor-pointer border border-transparent rounded-full hover:border-slate-200 active:border-slate-300 w-6 h-6"
                     type="button"
@@ -134,7 +134,7 @@ const Home: NextPage = () => {
                   onClick={() => {
                     handleOnRemoveItem(item);
                   }}
-                  className="bg-red-500 text-white cursor-pointer flex justify-center items-center text-center shadow-sm text-xs rounded-full w-6 h-6"
+                  className="bg-red-500 justify-self-end text-white cursor-pointer flex justify-center items-center text-center shadow-sm text-xs rounded-full w-6 h-6"
                 >
                   <span>X</span>
                 </div>
