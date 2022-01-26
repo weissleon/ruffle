@@ -1,5 +1,7 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
+import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import Card from "../components/Card";
 import { generateWinnerList, ItemList } from "../lib/helper";
 
 type Props = {
@@ -7,15 +9,21 @@ type Props = {
 };
 const Result: NextPage<Props> = ({ winnerList }) => {
   return (
-    <div className="h-screen flex flex-col justify-center items-center bg-gradient-to-tr from-slate-500 to-slate-700">
-      <div className="flex flex-col gap-y-4 items-center w-2/3 max-w-md bg-slate-100 px-4 py-4">
-        <h1 className="font-bold">추첨 결과</h1>
-        <div className="bg-white h-52 flex flex-col w-full py-2 gap-y-2 flex-wrap overflow-y-auto">
-          {winnerList.map((item, index) => (
-            <div className="px-4" key={index}>
-              {item}
-            </div>
+    <div className="min-h-screen flex flex-col gap-y-12 justify-center items-center bg-gradient-to-tr from-slate-500 to-slate-700">
+      <div>
+        <h1 className="font-bold text-2xl">추첨 결과</h1>
+      </div>
+      <div className="flex flex-row gap-x-4 justify-center items-center">
+        <div className="hover:bg-slate-100 active:bg-slate-200 cursor-pointer w-12 h-12 justify-center items-center flex rounded-full text-lg">
+          <IoChevronBack />
+        </div>
+        <main className="flex flex-row gap-x-2 flex-wrap max-w-[1072px] gap-y-2">
+          {winnerList.map((content) => (
+            <Card content={content} />
           ))}
+        </main>
+        <div className="hover:bg-slate-100 active:bg-slate-200 cursor-pointer w-12 h-12 justify-center items-center flex rounded-full text-lg">
+          <IoChevronForward />
         </div>
       </div>
     </div>
