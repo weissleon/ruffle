@@ -101,15 +101,17 @@ const Home: NextPage = () => {
           />
         </div>
         {/* 이름목록박스 */}
-        <div className="w-full h-[200px] overflow-y-auto py-2 flex flex-col gap-y-2 bg-white">
+        <div className="w-full relative h-[200px] overflow-y-auto py-2 flex flex-col gap-y-2 bg-white">
           {Object.keys(itemList).map((item) => {
             return (
               <div
-                className="grid grid-cols-3 grid-flow-col px-4 items-center"
+                className="w-full grid grid-cols-3 grid-flow-col items-start px-4 "
                 key={item}
               >
-                <div className="justify-self-start">{item}</div>
-                <div className="justify-self-center flex flex-row gap-2 items-center">
+                <div className="justify-self-start w-full break-words">
+                  {item}
+                </div>
+                <div className="justify-self-center w-full flex flex-row gap-2 items-center">
                   <input
                     className="cursor-pointer border border-transparent rounded-full hover:border-slate-200 active:border-slate-300 w-6 h-6"
                     type="button"
