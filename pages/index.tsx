@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   const [item, setItem] = useState<string>("");
 
   // A state to store item list
-  // It is implemented with Map so that frequencies are also stored
+  // It is implemented with object so that frequencies are also stored
   const [itemList, setItemList] = useState<ItemList>({});
 
   // * HANDLERS
@@ -21,8 +21,11 @@ const Home: NextPage = () => {
 
     // Update itemList
     setItemList((prev) => {
+      // If item already exists, increment frequency by 1
       if (Object.keys(itemList).indexOf(item) >= 0)
         return { ...prev, [item]: prev[item] + 1 };
+
+      // If item is new, create a new entry
       return { ...prev, [item]: 1 };
     });
 
