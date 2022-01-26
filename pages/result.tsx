@@ -20,7 +20,7 @@ const Result: NextPage<Props> = ({ winnerList }) => {
           </div>
           <main className="flex flex-row gap-x-2 flex-wrap max-w-[1072px] gap-y-2">
             {winnerList.map((content) => (
-              <Card content={content} />
+              <Card key={content} content={content} />
             ))}
           </main>
           <div className="hover:bg-slate-100 active:bg-slate-200 cursor-pointer w-12 h-12 justify-center items-center flex rounded-full text-lg">
