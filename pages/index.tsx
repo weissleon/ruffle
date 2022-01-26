@@ -76,8 +76,12 @@ const Home: NextPage = () => {
 
   return (
     // 젤 큰 박스
-    <div className="justify-center flex h-screen items-center ">
+    <div className="justify-center gap-y-4 flex min-h-screen flex-col items-center ">
       {/* screen : 화면 전체 / 내용물 사이즈(화면높이만큼) */}
+
+      <div>
+        <h1 className="font-bold text-xl">RUFFLE</h1>
+      </div>
       {/* 컨텐트박스 */}
       <div className="flex gap-y-4 bg-yellow-500 flex-col p-10 w-2/3 max-w-md h-min">
         {/* 인풋박스 */}
