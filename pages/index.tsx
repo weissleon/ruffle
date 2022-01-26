@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { ItemList } from "../lib/helper";
+import CandidateListItem from "../components/CandidateListItem";
 
 const Home: NextPage = () => {
   // Create router
@@ -104,43 +105,13 @@ const Home: NextPage = () => {
         <div className="w-full relative h-[200px] overflow-y-auto py-2 flex flex-col gap-y-2 bg-white">
           {Object.keys(itemList).map((item) => {
             return (
-              <div
-                className="w-full grid grid-cols-3 grid-flow-col items-start px-4 "
+              <CandidateListItem
+                item={{ content: item, frequency: itemList[item] }}
                 key={item}
-              >
-                <div className="justify-self-start w-full break-words">
-                  {item}
-                </div>
-                <div className="justify-self-center w-full flex flex-row gap-2 items-center">
-                  <input
-                    className="cursor-pointer border border-transparent rounded-full hover:border-slate-200 active:border-slate-300 w-6 h-6"
-                    type="button"
-                    value="-"
-                    onClick={() => {
-                      handleOnFreqDecrement(item);
-                    }}
-                  />
-                  <div>
-                    <span className="align-middle">{itemList[item]}</span>
-                  </div>
-                  <input
-                    className="cursor-pointer border border-transparent rounded-full hover:border-slate-200 active:border-slate-300 w-6 h-6"
-                    type="button"
-                    value="+"
-                    onClick={() => {
-                      handleOnFreqIncrement(item);
-                    }}
-                  />
-                </div>
-                <div
-                  onClick={() => {
-                    handleOnRemoveItem(item);
-                  }}
-                  className="bg-red-500 justify-self-end text-white cursor-pointer flex justify-center items-center text-center shadow-sm text-xs rounded-full w-6 h-6"
-                >
-                  <span>X</span>
-                </div>
-              </div>
+                onIncrementClicked={handleOnFreqIncrement}
+                onDecrementClicked={handleOnFreqDecrement}
+                onRemoveClicked={handleOnRemoveItem}
+              />
             );
           })}
         </div>
