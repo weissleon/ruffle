@@ -92,25 +92,25 @@ const Home: NextPage = () => {
 
   return (
     // 젤 큰 박스
-    <div className="justify-center gap-y-4 flex min-h-screen flex-col items-center ">
+    <div className="flex flex-col items-center justify-center min-h-screen gap-y-4 ">
       {/* screen : 화면 전체 / 내용물 사이즈(화면높이만큼) */}
 
       <div>
-        <h1 className="font-bold text-xl">RUFFLE</h1>
+        <h1 className="text-xl font-bold">RUFFLE</h1>
       </div>
       {/* 컨텐트박스 */}
-      <div className="flex gap-y-4 rounded-md border-2 border-slate-100 flex-col p-10 max-w-md w-2/3 h-min shadow-md shadow-slate-200 bg-slate-200">
+      <div className="flex flex-col w-2/3 max-w-md p-10 border-2 rounded-md shadow-md gap-y-4 border-slate-100 h-min shadow-slate-200 bg-slate-200">
         {/* 인풋박스 */}
         <div className="flex flex-row w-full">
           <input
-            className="w-2/3 mr-4 px-4 border-2 border-slate-400"
+            className="w-2/3 px-4 mr-4 border-2 border-slate-400"
             type="text"
             value={item}
             onChange={handleOnItemInputChange}
             onKeyPress={handleOnEnterPressed}
           />
           <input
-            className="bg-white px-4 py-2 cursor-pointer w-1/3"
+            className="w-1/3 px-4 py-2 bg-white cursor-pointer"
             onClick={handleAdd}
             type="button"
             value="추가"
@@ -125,7 +125,7 @@ const Home: NextPage = () => {
           handleOnSortByFrequency={handleOnSortByFrequency}
         />
         <input
-          className="w-full px-4 py-2 cursor-pointer bg-lime-400 rounded-md shadow-sm hover:bg-lime-500 hover:shadow-md transition-all"
+          className="w-full px-4 py-2 transition-all rounded-md shadow-sm cursor-pointer bg-lime-400 hover:bg-lime-500 hover:shadow-md"
           onClick={handleSubmit}
           type="button"
           value="추첨하기"
