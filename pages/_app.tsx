@@ -1,8 +1,15 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { RuffleDataProvider } from "../hooks/RuffleDataContext";
+import { enableMapSet } from "immer";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  enableMapSet();
+  return (
+    <RuffleDataProvider>
+      <Component {...pageProps} />
+    </RuffleDataProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

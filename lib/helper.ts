@@ -1,5 +1,5 @@
 export function generateWinnerList(
-  sourceList: ItemList,
+  sourceList: ItemMap,
   count: number
 ): string[] {
   // Using set for preventing duplicates
@@ -26,12 +26,12 @@ export function generateWinnerList(
   return Array.from(winnerSet);
 }
 
-export type ItemList = Map<string, number>;
+export type ItemMap = Map<string, number>;
 
-export function sortMapByKey(sourceObject: ItemList) {
+export function sortMapByKey(sourceObject: ItemMap) {
   return new Map([...sourceObject.entries()].sort());
 }
 
-export function sortMapByValue(sourceObject: ItemList) {
+export function sortMapByValue(sourceObject: ItemMap) {
   return new Map([...sourceObject.entries()].sort((a, b) => b[1] - a[1]));
 }
