@@ -1,21 +1,28 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import Card from "../components/Card";
-import { generateWinnerList, ItemList } from "../lib/helper";
+import { useRuffleData } from "../hooks/RuffleDataContext";
+import { generateWinnerList, ItemMap } from "../lib/helper";
 
-type Props = {
-  winnerList: string[];
-};
-const Result: NextPage<Props> = ({ winnerList }) => {
+type Props = {};
+const Result: NextPage<Props> = () => {
+  const { ruffleData } = useRuffleData()!;
+
+  const winnerList = generateWinnerList(
+    ruffleData.itemMap,
+    ruffleData.pickSize
+  );
+
   return (
-    <div className="min-h-screen flex flex-col gap-y-12 justify-center items-center bg-gradient-to-tr from-slate-500 to-slate-700">
+    <div className="flex flex-col items-center justify-center min-h-screen gap-y-12 bg-gradient-to-tr from-slate-500 to-slate-700">
       <div>
-        <h1 className="font-bold text-2xl">추첨 결과</h1>
+        <h1 className="text-2xl font-bold">추첨 결과</h1>
       </div>
-      <div className="justify-center flex items-center">
-        <div className="flex flex-row gap-x-4 justify-center items-center">
-          <div className="hover:bg-slate-100 active:bg-slate-200 cursor-pointer w-12 h-12 justify-center items-center flex rounded-full text-lg">
+      <div className="flex items-center justify-center">
+        <div className="flex flex-row items-center justify-center gap-x-4">
+          <div className="flex items-center justify-center w-12 h-12 text-lg rounded-full cursor-pointer hover:bg-slate-100 active:bg-slate-200">
             <IoChevronBack />
           </div>
           <main className="flex flex-row gap-x-2 flex-wrap max-w-[1072px] gap-y-2">
@@ -23,7 +30,7 @@ const Result: NextPage<Props> = ({ winnerList }) => {
               <Card key={content} content={content} />
             ))}
           </main>
-          <div className="hover:bg-slate-100 active:bg-slate-200 cursor-pointer w-12 h-12 justify-center items-center flex rounded-full text-lg">
+          <div className="flex items-center justify-center w-12 h-12 text-lg rounded-full cursor-pointer hover:bg-slate-100 active:bg-slate-200">
             <IoChevronForward />
           </div>
         </div>
@@ -32,25 +39,17 @@ const Result: NextPage<Props> = ({ winnerList }) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  // Convert query.itemList to string [] no matter what the incoming type is.
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  req,
+}) => {
+  // ! TEMPORARY. There must be a better way
+  // Redirect to home page if the user performed refresh
+  if (req.headers.referer !== "http://localhost:3000/")
+    return { redirect: { destination: "/", permanent: false }, props: {} };
 
-  const itemList: ItemList =
-    query.itemList && typeof query.itemList === "string"
-      ? new Map(Object.entries(JSON.parse(query.itemList)))
-      : new Map();
-
-  // ! TEMPORARY: Generating pickCount. In the future, the pickCount will be received as a query parameter.
-  const pickCount = Math.ceil(itemList.size / 2);
-
-  // Generate winnerList
-  const winnerList = generateWinnerList(itemList, pickCount);
-
-  // Pass winnerList to the client.
   return {
-    props: {
-      winnerList,
-    },
+    props: {},
   };
 };
 

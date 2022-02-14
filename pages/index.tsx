@@ -1,20 +1,24 @@
 import type { NextPage } from "next";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { useRouter } from "next/router";
-import { ItemList, sortMapByKey, sortMapByValue } from "../lib/helper";
-import CandidateListItem from "../components/CandidateListItem";
+import { ItemMap, sortMapByKey, sortMapByValue } from "../lib/helper";
 import CandidateListBox from "../components/CandidateListBox";
+import { useRuffleData } from "../hooks/RuffleDataContext";
 
 const Home: NextPage = () => {
   // Create router
   const router = useRouter();
+  const { setRuffleData } = useRuffleData()!;
 
   // A state to store current input
   const [item, setItem] = useState<string>("");
 
   // A state to store item list
   // It is implemented with object so that frequencies are also stored
-  const [itemList, setItemList] = useState<ItemList>(new Map<string, number>());
+  const [itemMap, setItemMap] = useState<ItemMap>(new Map<string, number>());
+
+  // A state to store pickSize
+  const [pickSize, setPickSize] = useState<number>(0);
 
   // * HANDLERS
   function handleAdd() {
@@ -23,7 +27,7 @@ const Home: NextPage = () => {
     if (candidate === "") return;
 
     // Update itemList
-    setItemList((prev) => {
+    setItemMap((prev) => {
       const newMap = new Map(prev);
 
       if (prev.has(candidate)) newMap.set(candidate, prev.get(candidate)! + 1);
@@ -36,22 +40,24 @@ const Home: NextPage = () => {
   }
 
   function handleSubmit() {
-    if (itemList.size == 0) return;
+    if (itemMap.size == 0) return;
+
+    setRuffleData((draft) => {
+      draft.itemMap = itemMap;
+      draft.pickSize = pickSize;
+    });
 
     router.push({
       pathname: "/result",
-      query: {
-        itemList: JSON.stringify(Object.fromEntries(itemList.entries())),
-      },
     });
   }
 
   function handleOnSortByCandidate() {
-    setItemList(sortMapByKey(itemList));
+    setItemMap(sortMapByKey(itemMap));
   }
 
   function handleOnSortByFrequency() {
-    setItemList(sortMapByValue(itemList));
+    setItemMap(sortMapByValue(itemMap));
   }
 
   function handleOnItemInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -64,8 +70,27 @@ const Home: NextPage = () => {
     if (event.key == "Enter") handleAdd();
   }
 
+  function handleOnPickSizeChange(event: ChangeEvent<HTMLInputElement>) {
+    const value = parseInt(event.target.value.trim());
+    if (isNaN(value)) return;
+    if (value < 0) return;
+    if (value > itemMap.size) return;
+
+    setPickSize(value);
+  }
+
+  function handleOnPickSizeIncrement() {
+    if (pickSize === itemMap.size) return;
+    setPickSize((prev) => prev + 1);
+  }
+
+  function handleOnPickSizeDecrement() {
+    if (pickSize <= 0) return;
+    setPickSize((prev) => prev - 1);
+  }
+
   function handleOnRemoveItem(item: string) {
-    setItemList((prev) => {
+    setItemMap((prev) => {
       const newMap = new Map(prev);
       newMap.delete(item);
       return newMap;
@@ -73,7 +98,7 @@ const Home: NextPage = () => {
   }
 
   function handleOnFreqIncrement(item: string) {
-    setItemList((prev) => {
+    setItemMap((prev) => {
       const newMap = new Map(prev);
       newMap.set(item, prev.get(item)! + 1);
       return newMap;
@@ -81,7 +106,7 @@ const Home: NextPage = () => {
   }
 
   function handleOnFreqDecrement(item: string) {
-    setItemList((prev) => {
+    setItemMap((prev) => {
       const newMap = new Map(prev);
       if (prev.get(item) === 1) newMap.delete(item);
       else newMap.set(item, prev.get(item)! - 1);
@@ -117,13 +142,36 @@ const Home: NextPage = () => {
           />
         </div>
         <CandidateListBox
-          candidateList={itemList}
+          candidateList={itemMap}
           handleOnFreqDecrement={handleOnFreqDecrement}
           handleOnFreqIncrement={handleOnFreqIncrement}
           handleOnRemoveItem={handleOnRemoveItem}
           handleOnSortByCandidate={handleOnSortByCandidate}
           handleOnSortByFrequency={handleOnSortByFrequency}
         />
+        <div className="flex flex-row items-center w-full px-4 py-2 shadow-md bg-slate-200 gap-x-4">
+          <div>추첨인원: </div>
+          <div className="flex gap-x-2">
+            <button
+              onClick={handleOnPickSizeDecrement}
+              className="w-8 h-8 rounded-lg bg-slate-300"
+            >
+              -
+            </button>
+            <input
+              value={pickSize}
+              onChange={handleOnPickSizeChange}
+              className="max-w-[40px] text-center rounded-md"
+              type="text"
+            />
+            <button
+              onClick={handleOnPickSizeIncrement}
+              className="w-8 h-8 rounded-lg bg-slate-300"
+            >
+              +
+            </button>
+          </div>
+        </div>
         <input
           className="w-full px-4 py-2 transition-all rounded-md shadow-sm cursor-pointer bg-lime-400 hover:bg-lime-500 hover:shadow-md"
           onClick={handleSubmit}
