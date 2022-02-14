@@ -1,6 +1,4 @@
 import type { GetServerSideProps, NextPage } from "next";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 import Card from "../components/Card";
 import { useRuffleData } from "../hooks/RuffleDataContext";
@@ -43,9 +41,13 @@ export const getServerSideProps: GetServerSideProps = async ({
   query,
   req,
 }) => {
-  // ! TEMPORARY. There must be a better way
+  const refererUrl = new URL(req.headers.referer!);
+
+  const sameHost = refererUrl.host === req.headers.host;
+  const fromHome = refererUrl.pathname === "/";
+
   // Redirect to home page if the user performed refresh
-  if (req.headers.referer !== "http://localhost:3000/")
+  if (!sameHost || !fromHome)
     return { redirect: { destination: "/", permanent: false }, props: {} };
 
   return {
