@@ -43,7 +43,7 @@ const Home: NextPage = () => {
   }
 
   function handleSubmit() {
-    if (itemMap.size == 0) return;
+    if (pickSize === 0) return;
 
     setRuffleData((draft) => {
       draft.itemMap = itemMap;
@@ -150,13 +150,18 @@ const Home: NextPage = () => {
     });
   }
 
+  // Texts to be displayed on the screen
+
+  const mainTitle = `RUFFLE`;
+  const totalNumberText = `총 후보 갯수: ${itemMap.size}`;
+
   return (
     // 젤 큰 박스
     <div className="flex flex-col items-center justify-center min-h-screen gap-y-4 ">
       {/* screen : 화면 전체 / 내용물 사이즈(화면높이만큼) */}
 
       <div>
-        <h1 className="text-xl font-bold">RUFFLE</h1>
+        <h1 className="text-xl font-bold">{mainTitle}</h1>
       </div>
       {/* 컨텐트박스 */}
       <div className="flex flex-col w-2/3 max-w-md p-10 border-2 rounded-md shadow-md gap-y-4 border-slate-100 h-min shadow-slate-200 bg-slate-200">
@@ -202,26 +207,38 @@ const Home: NextPage = () => {
           handleOnSortByFrequency={handleOnSortByFrequency}
         />
         <div className="flex flex-row items-center w-full px-4 py-2 shadow-md bg-slate-200 gap-x-4">
-          <div>추첨인원: </div>
-          <div className="flex gap-x-2">
-            <button
-              onClick={handleOnPickSizeDecrement}
-              className="w-8 h-8 rounded-lg bg-slate-300"
-            >
-              -
-            </button>
-            <input
-              value={pickSize}
-              onChange={handleOnPickSizeChange}
-              className="max-w-[40px] text-center rounded-md"
-              type="text"
-            />
-            <button
-              onClick={handleOnPickSizeIncrement}
-              className="w-8 h-8 rounded-lg bg-slate-300"
-            >
-              +
-            </button>
+          <div>{totalNumberText}</div>
+          <div className="flex items-center row gap-x-4">
+            <div>추첨갯수: </div>
+            <div className="flex gap-x-2">
+              <button
+                onClick={handleOnPickSizeDecrement}
+                disabled={itemMap.size === 0}
+                className={`w-8 h-8 rounded-lg   ${
+                  pickSize === 0
+                    ? "bg-slate-100 text-slate-300"
+                    : "bg-slate-300 text-slate-600"
+                }`}
+              >
+                -
+              </button>
+              <input
+                value={pickSize}
+                onChange={handleOnPickSizeChange}
+                className="max-w-[40px] text-center rounded-md"
+                type="text"
+              />
+              <button
+                onClick={handleOnPickSizeIncrement}
+                className={`w-8 h-8 rounded-lg   ${
+                  pickSize === itemMap.size
+                    ? "bg-slate-100 text-slate-300"
+                    : "bg-slate-300 text-slate-600"
+                }`}
+              >
+                +
+              </button>
+            </div>
           </div>
         </div>
         <input
