@@ -1,25 +1,31 @@
-import React, { useEffect } from "react";
-import { useRuffleData } from "../hooks/RuffleDataContext";
-
+import React, { ChangeEvent, useEffect } from "react";
+import Papa from "papaparse";
 const Test = () => {
-  const { ruffleData, setRuffleData } = useRuffleData()!;
+  function handleOnFileSelected(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files![0];
+    const reader = new FileReader();
+    reader.readAsText(file, "UTF-8");
+    reader.onload = (evt) => {
+      let content = evt.target?.result as string;
+      let result = Papa.parse(content, { header: true });
+
+      console.log("Result:", result.data);
+    };
+  }
 
   useEffect(() => {
-    console.log(ruffleData);
-
     return () => {};
-  }, [ruffleData]);
-
-  function onClick() {
-    const freq = ruffleData.itemMap.get("Denis Cho");
-    setRuffleData((draft) => {
-      draft.itemMap.set("Denis Cho", freq ? freq + 1 : 1);
-    });
-  }
+  }, []);
 
   return (
     <div>
-      <button onClick={onClick}>Add Candidate</button>
+      <label htmlFor="file">Upload File</label>
+      <input
+        onChange={handleOnFileSelected}
+        id="file"
+        type="file"
+        accept=".csv"
+      />
     </div>
   );
 };
