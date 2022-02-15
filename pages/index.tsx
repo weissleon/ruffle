@@ -83,9 +83,10 @@ const Home: NextPage = () => {
   }
 
   function handleOnFileUploaded(event: ChangeEvent<HTMLInputElement>) {
+    console.log("Called!");
     const file = event.target.files ? event.target.files[0] : null;
 
-    if (!file) return;
+    if (!file) return setCsvFileName("");
 
     const reader = new FileReader();
     reader.readAsText(file, "UTF-8");
@@ -109,6 +110,8 @@ const Home: NextPage = () => {
     };
 
     setCsvFileName(file.name);
+
+    event.target.value = "";
   }
 
   function handleOnPickSizeIncrement() {
