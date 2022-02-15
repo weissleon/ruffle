@@ -5,6 +5,8 @@ import { ItemMap, sortMapByKey, sortMapByValue } from "../lib/helper";
 import CandidateListBox from "../components/CandidateListBox";
 import { useRuffleData } from "../hooks/RuffleDataContext";
 
+import Papa from "papaparse";
+
 const Home: NextPage = () => {
   // Create router
   const router = useRouter();
@@ -12,6 +14,7 @@ const Home: NextPage = () => {
 
   // A state to store current input
   const [item, setItem] = useState<string>("");
+  const [csvFileName, setCsvFileName] = useState("");
 
   // A state to store item list
   // It is implemented with object so that frequencies are also stored
@@ -79,6 +82,35 @@ const Home: NextPage = () => {
     setPickSize(value);
   }
 
+  function handleOnFileUploaded(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files ? event.target.files[0] : null;
+
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.readAsText(file, "UTF-8");
+    reader.onload = (evt) => {
+      const rawText = evt.target ? (evt.target.result as string) : null;
+      if (!rawText) return;
+
+      const result = Papa.parse<{ Name: string; Frequency: number }>(rawText, {
+        header: true,
+      });
+
+      const tempMap = new Map(itemMap);
+      result.data.forEach((datum) => {
+        const [name, frequency] = Object.values(datum) as string[];
+        if (tempMap.get(name))
+          tempMap.set(name, tempMap.get(name)! + parseInt(frequency));
+        else tempMap.set(name, parseInt(frequency));
+      });
+
+      setItemMap(tempMap);
+    };
+
+    setCsvFileName(file.name);
+  }
+
   function handleOnPickSizeIncrement() {
     if (pickSize === itemMap.size) return;
     setPickSize((prev) => prev + 1);
@@ -140,6 +172,23 @@ const Home: NextPage = () => {
             type="button"
             value="추가"
           />
+        </div>
+        {/* CSV 파일 불러오기 박스 */}
+        <div className="flex flex-row items-center py-2 gap-x-4">
+          <label
+            className="px-4 py-2 rounded-lg cursor-pointer bg-slate-300"
+            htmlFor="csv-import"
+          >
+            CSV 파일 불러오기
+          </label>
+          <input
+            onChange={handleOnFileUploaded}
+            className="hidden"
+            type="file"
+            id="csv-import"
+            accept=".csv"
+          />
+          <div>{csvFileName}</div>
         </div>
         <CandidateListBox
           candidateList={itemMap}
