@@ -17,13 +17,10 @@ type ProviderProps = {
   children: ReactNode;
 };
 
-const RuffleData = createContext<
-  | {
-      ruffleData: RuffleData;
-      setRuffleData: Updater<RuffleData>;
-    }
-  | undefined
->(undefined);
+const RuffleData = createContext<{
+  ruffleData: RuffleData;
+  setRuffleData: Updater<RuffleData>;
+} | null>(null);
 
 export const RuffleDataProvider: VFC<ProviderProps> = ({ children }) => {
   const [ruffleData, setRuffleData] = useImmer<RuffleData>({
@@ -38,5 +35,7 @@ export const RuffleDataProvider: VFC<ProviderProps> = ({ children }) => {
 };
 
 export const useRuffleData = () => {
-  return useContext(RuffleData);
+  const context = useContext(RuffleData);
+  if (!context) throw new Error("RuffleDataProvider not found!");
+  return context;
 };
