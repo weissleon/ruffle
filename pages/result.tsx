@@ -40,7 +40,6 @@ const Result: NextPage<Props> = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-
   const isReloaded = typeof req.headers.referer === "undefined";
 
   // Redirect to home page if the user performed refresh
