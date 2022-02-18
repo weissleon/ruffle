@@ -1,5 +1,6 @@
 import { forwardRef, Ref } from "react";
 import { useState, VFC } from "react";
+import { IoAdd, IoRemove, IoTrash } from "react-icons/io5";
 
 type Props = {
   item: Item;
@@ -30,35 +31,35 @@ const CandidateListItem = forwardRef<HTMLDivElement, Props>((props, ref) => {
       ref={ref}
       onMouseOver={handleOnHover}
       onMouseLeave={handleOnHoverLeave}
-      className="w-full grid grid-cols-3 items-start px-4 "
+      className="grid content-center w-full grid-cols-3 px-4 py-2 align-middle border-b border-solid text-slate-700 border-slate-200"
       key={item.content}
     >
       {/* Content */}
-      <div className="justify-self-start w-full break-words">
+      <div className="w-full break-words justify-self-start">
         {item.content}
       </div>
 
       {/* Frequency */}
-      <div className="w-full flex flex-row items-center justify-center gap-2">
-        <input
-          className="cursor-pointer border border-transparent rounded-full hover:border-slate-200 active:border-slate-300 w-6 h-6"
-          type="button"
-          value="-"
+      <div className="flex flex-row items-center justify-center w-full gap-2">
+        <button
+          className="flex items-center justify-center w-6 h-6 border border-transparent rounded-full cursor-pointer hover:border-slate-200 active:border-slate-300"
           onClick={() => {
             onDecrementClicked(item.content);
           }}
-        />
-        <div>
-          <span className="align-middle">{item.frequency}</span>
+        >
+          <IoRemove />
+        </button>
+        <div className="flex items-center justify-end w-6 h-6">
+          <span className="leading-none align-middle">{item.frequency}</span>
         </div>
-        <input
-          className="cursor-pointer border border-transparent rounded-full hover:border-slate-200 active:border-slate-300 w-6 h-6"
-          type="button"
-          value="+"
+        <button
+          className="flex items-center justify-center w-6 h-6 ml-2 border border-transparent rounded-full cursor-pointer hover:border-slate-200 active:border-slate-300"
           onClick={() => {
             onIncrementClicked(item.content);
           }}
-        />
+        >
+          <IoAdd />
+        </button>
       </div>
       <div
         onClick={() => {
@@ -66,9 +67,11 @@ const CandidateListItem = forwardRef<HTMLDivElement, Props>((props, ref) => {
         }}
         className={`${
           isHovered ? "flex" : "hidden"
-        } bg-red-500 justify-self-end text-white cursor-pointer justify-center items-center text-center shadow-sm text-xs rounded-full w-6 h-6`}
+        } justify-self-end text-slate-400 cursor-pointer justify-center items-center text-center text-lg w-6 h-6`}
       >
-        <span className="select-none">X</span>
+        <span className="select-none hover:text-slate-500">
+          <IoTrash />
+        </span>
       </div>
     </div>
   );

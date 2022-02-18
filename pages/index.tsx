@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { ItemMap, sortMapByKey, sortMapByValue } from "../lib/helper";
 import CandidateListBox from "../components/CandidateListBox";
 import { useRuffleData } from "../hooks/RuffleDataContext";
-import { IoPlay } from "react-icons/io5";
+import { IoAdd, IoPlay, IoRemove } from "react-icons/io5";
 
 import Papa from "papaparse";
 import {
@@ -17,6 +17,7 @@ import {
   Title,
   Paper,
   TextInput,
+  Text,
 } from "@mantine/core";
 
 const Home: NextPage = () => {
@@ -220,9 +221,9 @@ const Home: NextPage = () => {
                 {csvImportText}
               </Button>
               <input
+                type="file"
                 onChange={handleOnFileUploaded}
                 className="hidden"
-                type="file"
                 id="csv-import"
                 accept=".csv"
               />
@@ -236,12 +237,21 @@ const Home: NextPage = () => {
               handleOnSortByCandidate={handleOnSortByCandidate}
               handleOnSortByFrequency={handleOnSortByFrequency}
             />
-            <div className="flex flex-row items-center w-full px-4 py-2 shadow-md bg-slate-200 gap-x-4">
+            <div className="flex flex-col items-start w-full py-2 gap-x-4">
               <div>{totalNumberText}</div>
               <div className="flex items-center row gap-x-4">
-                <div>추첨갯수: </div>
+                <Text>추첨갯수: </Text>
                 <div className="flex gap-x-2">
-                  <button
+                  <Button
+                    size="xs"
+                    variant="default"
+                    disabled={pickSize === 0}
+                    radius={"xl"}
+                    onClick={handleOnPickSizeDecrement}
+                  >
+                    <IoRemove />
+                  </Button>
+                  {/* <button
                     onClick={handleOnPickSizeDecrement}
                     disabled={itemMap.size === 0}
                     className={`w-8 h-8 rounded-lg   ${
@@ -251,14 +261,23 @@ const Home: NextPage = () => {
                     }`}
                   >
                     -
-                  </button>
+                  </button> */}
                   <input
                     value={pickSize}
-                    onChange={handleOnPickSizeChange}
                     className="max-w-[40px] text-center rounded-md"
                     type="text"
+                    onChange={handleOnPickSizeChange}
                   />
-                  <button
+                  <Button
+                    size="xs"
+                    disabled={pickSize === itemMap.size}
+                    variant="default"
+                    radius={"xl"}
+                    onClick={handleOnPickSizeIncrement}
+                  >
+                    <IoAdd />
+                  </Button>
+                  {/* <button
                     onClick={handleOnPickSizeIncrement}
                     className={`w-8 h-8 rounded-lg   ${
                       pickSize === itemMap.size
@@ -267,7 +286,7 @@ const Home: NextPage = () => {
                     }`}
                   >
                     +
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
