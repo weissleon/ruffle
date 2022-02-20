@@ -173,6 +173,7 @@ const Home: NextPage = () => {
   const addText = "추가";
   const inputPlaceholderText = "후보 이름을 입력하세요";
   const csvImportText = "CSV 파일 불러오기";
+
   return (
     // 젤 큰 박스
     <Container style={{ minHeight: "100vh" }}>
@@ -251,17 +252,6 @@ const Home: NextPage = () => {
                   >
                     <IoRemove />
                   </Button>
-                  {/* <button
-                    onClick={handleOnPickSizeDecrement}
-                    disabled={itemMap.size === 0}
-                    className={`w-8 h-8 rounded-lg   ${
-                      pickSize === 0
-                        ? "bg-slate-100 text-slate-300"
-                        : "bg-slate-300 text-slate-600"
-                    }`}
-                  >
-                    -
-                  </button> */}
                   <input
                     value={pickSize}
                     className="max-w-[40px] text-center rounded-md"
@@ -277,16 +267,6 @@ const Home: NextPage = () => {
                   >
                     <IoAdd />
                   </Button>
-                  {/* <button
-                    onClick={handleOnPickSizeIncrement}
-                    className={`w-8 h-8 rounded-lg   ${
-                      pickSize === itemMap.size
-                        ? "bg-slate-100 text-slate-300"
-                        : "bg-slate-300 text-slate-600"
-                    }`}
-                  >
-                    +
-                  </button> */}
                 </div>
               </div>
             </div>
