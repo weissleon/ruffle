@@ -1,9 +1,9 @@
 import { Center, Container, Group } from "@mantine/core";
 import type { GetServerSideProps, NextPage } from "next";
 import { IoChevronBack, IoChevronForward } from "react-icons/io5";
-import Card from "../components/Card";
-import { useRuffleData } from "../hooks/RuffleDataContext";
-import { generateWinnerList } from "../lib/helper";
+import Card from "@components/Card";
+import { useRuffleData } from "../../hooks/RuffleDataContext";
+import { generateWinnerList } from "../../lib/helper";
 
 type Props = {};
 const Result: NextPage<Props> = () => {
@@ -42,18 +42,6 @@ const Result: NextPage<Props> = () => {
       </Container>
     </div>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const isReloaded = typeof req.headers.referer === "undefined";
-
-  // Redirect to home page if the user performed refresh
-  if (isReloaded)
-    return { redirect: { destination: "/", permanent: false }, props: {} };
-
-  return {
-    props: {},
-  };
 };
 
 export default Result;
