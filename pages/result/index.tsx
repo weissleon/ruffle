@@ -7,7 +7,7 @@ import { generateWinnerList } from "../../lib/helper";
 
 type Props = {};
 const Result: NextPage<Props> = () => {
-  const { ruffleData } = useRuffleData()!;
+  const { ruffleData } = useRuffleData();
 
   const winnerList = generateWinnerList(
     ruffleData.itemMap,
