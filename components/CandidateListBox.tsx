@@ -25,7 +25,7 @@ const CandidateListBox: VFC<Props> = ({
   useEffect(() => {
     if (lastListCount.current !== candidateList.size) {
       lastListCount.current = candidateList.size;
-      lastElementRef.current?.scrollIntoView(true);
+      lastElementRef.current?.scrollIntoView({ block: "nearest" });
     }
     return () => {};
   }, [candidateList]);
