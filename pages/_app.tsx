@@ -6,10 +6,19 @@ import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
 import { AnimatePresence, LayoutGroup } from "framer-motion";
 import { useRouter } from "next/router";
+import { useDidUpdate } from "hooks/useDidUpdate";
+import { IsNavigatingProvider, useIsNavigating } from "hooks/NavigationContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   enableMapSet();
   const router = useRouter();
+
+  // const { setIsNavigating } = useIsNavigating();
+  // useDidUpdate(() => {
+  //   setIsNavigating(true);
+  //   return () => {};
+  // }, [router.asPath]);
+
   return (
     <>
       <Head>
@@ -28,11 +37,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           colorScheme: "light",
         }}
       >
-        <RuffleDataProvider>
-          <AnimatePresence exitBeforeEnter={true}>
-            <Component key={router.pathname} {...pageProps} />
-          </AnimatePresence>
-        </RuffleDataProvider>
+        <IsNavigatingProvider>
+          <RuffleDataProvider>
+            <AnimatePresence exitBeforeEnter={true}>
+              <Component key={router.pathname} {...pageProps} />
+            </AnimatePresence>
+          </RuffleDataProvider>
+        </IsNavigatingProvider>
       </MantineProvider>
     </>
   );
