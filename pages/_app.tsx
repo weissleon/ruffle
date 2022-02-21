@@ -30,9 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       >
         <RuffleDataProvider>
           <AnimatePresence exitBeforeEnter={true}>
-            {/* <LayoutGroup> */}
             <Component key={router.pathname} {...pageProps} />
-            {/* </LayoutGroup> */}
           </AnimatePresence>
         </RuffleDataProvider>
       </MantineProvider>

@@ -167,7 +167,7 @@ const Home: NextPage = () => {
   const headerHeight = 56;
 
   // Texts to be displayed on the screen
-  const mainTitle = `RUFFLE`;
+  const mainTitle = `Ruffle`;
   const totalNumberText = `총 후보 갯수: ${itemMap.size}`;
   const submitText = "추첨하기";
   const addText = "추가";
@@ -201,7 +201,7 @@ const Home: NextPage = () => {
       animate="show"
       exit="exit"
     >
-      <AppBar title="Ruffle" />
+      <AppBar title={mainTitle} />
       <motion.div className="flex flex-col items-center justify-center h-[calc(100%-56px)]">
         {/* Page  */}
         <motion.div

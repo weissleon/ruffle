@@ -1,4 +1,3 @@
-import { Center, type TextProps, Paper, Text } from "@mantine/core";
 import React, { VFC } from "react";
 import { motion, Variants } from "framer-motion";
 
@@ -9,6 +8,7 @@ type Props = {
 
 const appBarVariants: Variants = {
   hidden: {
+    fontSize: "4rem",
     opacity: 0,
   },
 
@@ -34,8 +34,8 @@ const AppBar: VFC<Props> = ({ title, showTitle = true }) => {
         className="w-full h-full shadow-sm shadow-slate-300"
       ></motion.div>
       <motion.h1
-        className="absolute text-4xl font-bold text-transparent bg-slate-500 bg-clip-text from-purple-400 to-blue-400 bg-gradient-to-r"
         layoutId="title"
+        className="absolute font-bold text-transparent bg-slate-500 bg-clip-text from-purple-400 to-blue-400 bg-gradient-to-r"
       >
         {title}
       </motion.h1>
