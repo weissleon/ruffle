@@ -5,7 +5,11 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
   const isReloaded = req.headers.get("referer") === null;
 
   // If the page is reloaded, reidrect to the start page
-  if (isReloaded && req.nextUrl.pathname !== "/start") {
+  if (
+    isReloaded &&
+    req.nextUrl.pathname !== "/start" &&
+    req.nextUrl.pathname !== "/test"
+  ) {
     const url = req.nextUrl.clone();
     url.pathname = "/start";
     return NextResponse.redirect(url);

@@ -10,9 +10,14 @@ import Lottery from "@components/icons/Lottery";
 
 type Props = {};
 
-const startPageVariants: Variants = {
-  exit: {
+const startPageVariants: Variants = {};
+const titleVariants: Variants = {
+  hidden: {
     opacity: 0,
+  },
+  show: {
+    y: 0,
+    opacity: 1,
   },
 };
 
@@ -20,7 +25,19 @@ const Start: NextPage<Props> = ({}) => {
   const router = useRouter();
 
   return (
-    <motion.div className="flex items-center justify-center w-full min-h-screen">
+    <motion.div
+      variants={startPageVariants}
+      className="flex flex-col items-center justify-center w-full min-h-screen gap-y-16"
+      initial="hidden"
+      animate="show"
+    >
+      <motion.h1
+        layoutId="title"
+        variants={titleVariants}
+        className="font-bold text-transparent select-none text-8xl bg-slate-500 bg-clip-text from-purple-400 to-blue-400 bg-gradient-to-r"
+      >
+        Ruffle
+      </motion.h1>
       <StartButton onClick={() => router.push("/")}>Start!</StartButton>
     </motion.div>
   );

@@ -29,7 +29,7 @@ const startButtonVariants: Variants = {
   tap: {
     scale: 0.95,
   },
-  exit: { y: 0, opacity: 0, scale: 2 },
+  exit: { y: 0, opacity: 0 },
 };
 
 const StartButton: VFC<Props> = ({
@@ -40,19 +40,19 @@ const StartButton: VFC<Props> = ({
   const [isExiting, setIsExiting] = useState(false);
 
   function handleOnClick(event: MouseEvent) {
-    setIsExiting(true);
+    // setIsExiting(true);
     onClick(event);
   }
   return (
     <motion.button
       onClick={handleOnClick}
-      className="relative flex flex-row items-center justify-center px-8 py-4 text-xl text-white w-min h-min bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl"
+      className="relative flex flex-row items-center justify-center px-8 py-4 text-xl text-white select-none w-min h-min bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl"
       variants={startButtonVariants}
       initial="hidden"
-      animate={isExiting ? "exit" : "show"}
-      whileHover={"hover"}
-      whileTap={"tap"}
-      exit={"exit"}
+      whileHover="hover"
+      whileTap="tap"
+      animate="show"
+      exit="exit"
     >
       {leftIcon ? <div className="relative w-8 h-8">{leftIcon}</div> : null}
       {children}
