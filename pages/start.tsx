@@ -1,31 +1,34 @@
 import StartButton from "@components/StartButton";
 import { NextPage } from "next";
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import { motion, Variants } from "framer-motion";
 import { useRouter } from "next/router";
-
-type Props = {};
-
-const startPageVariants: Variants = {};
-const titleVariants: Variants = {
-  hidden: {
-    fontSize: "6rem",
-    opacity: 0,
-  },
-  show: {
-    x: 0,
-    opacity: 1,
-  },
-};
+import { useIsNavigating } from "hooks/NavigationContext";
 
 const mainTitle = `Ruffle`;
 
+type Props = {};
 const Start: NextPage<Props> = ({}) => {
   const router = useRouter();
+  const isNavigating = useIsNavigating();
+
+  const titleVariants: Variants = useMemo(
+    () => ({
+      hidden: {
+        y: isNavigating ? 0 : "-100px",
+        fontSize: "6rem",
+        opacity: 0,
+      },
+      show: {
+        y: 0,
+        opacity: 1,
+      },
+    }),
+    [isNavigating]
+  );
 
   return (
     <motion.div
-      variants={startPageVariants}
       className="flex flex-col items-center justify-center w-full min-h-screen gap-y-16"
       initial="hidden"
       animate="show"
