@@ -2,6 +2,7 @@ export function generateWinnerList(
   sourceList: ItemMap,
   count: number
 ): string[] {
+  if (sourceList.size === 0 || count <= 0) return [];
   // Using set for preventing duplicates
   const winnerSet: Set<string> = new Set();
 

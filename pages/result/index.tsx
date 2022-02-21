@@ -7,7 +7,7 @@ import { generateWinnerList } from "../../lib/helper";
 
 type Props = {};
 const Result: NextPage<Props> = () => {
-  const { ruffleData } = useRuffleData()!;
+  const { ruffleData } = useRuffleData();
 
   const winnerList = generateWinnerList(
     ruffleData.itemMap,
@@ -29,9 +29,10 @@ const Result: NextPage<Props> = () => {
                 <IoChevronBack />
               </div>
               <main className="flex flex-row gap-x-2 flex-wrap max-w-[1072px] gap-y-2">
-                {winnerList.map((content) => (
-                  <Card key={content} content={content} />
-                ))}
+                {winnerList.length > 0 &&
+                  winnerList.map((content) => (
+                    <Card key={content} content={content} />
+                  ))}
               </main>
               <div className="flex items-center justify-center w-12 h-12 text-lg rounded-full cursor-pointer hover:bg-slate-100 active:bg-slate-200">
                 <IoChevronForward />

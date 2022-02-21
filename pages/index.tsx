@@ -5,13 +5,12 @@ import { ItemMap, sortMapByKey, sortMapByValue } from "../lib/helper";
 import CandidateListBox from "../components/CandidateListBox";
 import { useRuffleData } from "../hooks/RuffleDataContext";
 import { IoAdd, IoPlay, IoRemove } from "react-icons/io5";
-
+import { motion, Variants } from "framer-motion";
 import Papa from "papaparse";
 import {
   Box,
   Button,
   Center,
-  Container,
   Grid,
   Group,
   Title,
@@ -174,10 +173,39 @@ const Home: NextPage = () => {
   const inputPlaceholderText = "후보 이름을 입력하세요";
   const csvImportText = "CSV 파일 불러오기";
 
+  const mainPageVariants: Variants = {
+    hidden: { y: 100, opacity: 0 },
+    show: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        ease: "easeInOut",
+        duration: 0.5,
+      },
+    },
+    exit: {
+      y: 0,
+      scale: 2,
+      opacity: 0,
+      transition: {
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
     // 젤 큰 박스
-    <Container style={{ minHeight: "100vh" }}>
-      <Center style={{ height: "100vh", flexDirection: "column" }}>
+    <motion.div
+      className="flex flex-col items-center justify-center w-full overflow-x-hidden overflow-y-hidden"
+      style={{ minHeight: "100vh" }}
+    >
+      <motion.div
+        variants={mainPageVariants}
+        initial="hidden"
+        animate="show"
+        exit="exit"
+        className="flex flex-col items-center justify-center w-full max-w-4xl"
+      >
         {/* screen : 화면 전체 / 내용물 사이즈(화면높이만큼) */}
         <Box sx={{ marginBottom: 16 }}>
           <Title order={1}>{mainTitle}</Title>
@@ -281,8 +309,8 @@ const Home: NextPage = () => {
             </Button>
           </Group>
         </Paper>
-      </Center>
-    </Container>
+      </motion.div>
+    </motion.div>
   );
 };
 
