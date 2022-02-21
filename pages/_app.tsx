@@ -4,7 +4,7 @@ import { RuffleDataProvider } from "../hooks/RuffleDataContext";
 import { enableMapSet } from "immer";
 import Head from "next/head";
 import { MantineProvider } from "@mantine/core";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, LayoutGroup } from "framer-motion";
 import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -30,7 +30,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       >
         <RuffleDataProvider>
           <AnimatePresence exitBeforeEnter={true}>
+            {/* <LayoutGroup> */}
             <Component key={router.pathname} {...pageProps} />
+            {/* </LayoutGroup> */}
           </AnimatePresence>
         </RuffleDataProvider>
       </MantineProvider>
