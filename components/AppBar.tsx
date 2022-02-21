@@ -35,6 +35,9 @@ const AppBar: VFC<Props> = ({ title, showTitle = true }) => {
       ></motion.div>
       <motion.h1
         layoutId="title"
+        transition={{
+          layout: { ease: "easeInOut", duration: 0.5 },
+        }}
         className="absolute font-bold text-transparent bg-slate-500 bg-clip-text from-purple-400 to-blue-400 bg-gradient-to-r"
       >
         {title}

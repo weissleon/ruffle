@@ -13,7 +13,7 @@ const titleVariants: Variants = {
     opacity: 0,
   },
   show: {
-    y: 0,
+    x: 0,
     opacity: 1,
   },
 };
@@ -32,6 +32,9 @@ const Start: NextPage<Props> = ({}) => {
     >
       <motion.h1
         layoutId="title"
+        transition={{
+          layout: { ease: "easeInOut", duration: 0.5 },
+        }}
         variants={titleVariants}
         className="font-bold text-transparent select-none bg-slate-500 bg-clip-text from-purple-400 to-blue-400 bg-gradient-to-r"
       >
