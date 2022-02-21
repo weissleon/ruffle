@@ -7,18 +7,9 @@ import { useRuffleData } from "../hooks/RuffleDataContext";
 import { IoAdd, IoPlay, IoRemove } from "react-icons/io5";
 import { motion, Variants } from "framer-motion";
 import Papa from "papaparse";
-import {
-  Box,
-  Button,
-  Center,
-  Grid,
-  Group,
-  Title,
-  Paper,
-  TextInput,
-  Text,
-} from "@mantine/core";
+import { Grid, Group, Paper, TextInput, Text } from "@mantine/core";
 import AppBar from "@components/AppBar";
+import Button from "@components/Button";
 
 const Home: NextPage = () => {
   // Create router
@@ -195,124 +186,94 @@ const Home: NextPage = () => {
 
   return (
     <motion.div
-      layout
-      className="relative h-screen"
+      className="relative grid w-full h-screen grid-flow-row grid-rows-[56px_minmax(auto,1fr)]"
       initial="hidden"
       animate="show"
       exit="exit"
     >
       <AppBar title={mainTitle} />
-      <motion.div className="flex flex-col items-center justify-center h-[calc(100%-56px)]">
-        {/* Page  */}
+      <motion.main className="flex items-center justify-center py-4">
+        {/* 컨텐트박스 */}
         <motion.div
           variants={mainPageVariants}
-          className="flex flex-col items-center justify-center w-full max-w-4xl"
+          className="flex flex-col w-3/5 max-w-md p-8 shadow-sm min-w-max shadow-slate-300"
         >
-          {/* 컨텐트박스 */}
-          <Paper
-            padding="xl"
-            shadow="xs"
-            sx={{
-              minWidth: "360px",
-              width: "50%",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Group spacing={8} direction="column" grow>
-              {/* 인풋박스 */}
+          <Group spacing={8} direction="column" grow>
+            {/* 인풋박스 */}
 
-              <Grid>
-                <Grid.Col span={8}>
-                  <TextInput
-                    value={item}
-                    onChange={handleOnItemInputChange}
-                    onKeyPress={handleOnEnterPressed}
-                    placeholder={inputPlaceholderText}
-                  />
-                </Grid.Col>
-                <Grid.Col span={4}>
-                  <Button
-                    fullWidth
-                    color="blue"
-                    variant="filled"
-                    onClick={handleAdd}
-                  >
-                    {addText}
-                  </Button>
-                </Grid.Col>
-              </Grid>
-              {/* CSV 파일 불러오기 박스 */}
-              <div className="flex flex-row items-center py-2 gap-x-4">
-                <Button
-                  component="label"
-                  htmlFor="csv-import"
-                  variant="default"
-                >
-                  {csvImportText}
-                </Button>
-                <input
-                  type="file"
-                  onChange={handleOnFileUploaded}
-                  className="hidden"
-                  id="csv-import"
-                  accept=".csv"
+            <Grid>
+              <Grid.Col span={8}>
+                <TextInput
+                  value={item}
+                  onChange={handleOnItemInputChange}
+                  onKeyPress={handleOnEnterPressed}
+                  placeholder={inputPlaceholderText}
                 />
-                <div>{csvFileName}</div>
-              </div>
-              <CandidateListBox
-                candidateList={itemMap}
-                handleOnFreqDecrement={handleOnFreqDecrement}
-                handleOnFreqIncrement={handleOnFreqIncrement}
-                handleOnRemoveItem={handleOnRemoveItem}
-                handleOnSortByCandidate={handleOnSortByCandidate}
-                handleOnSortByFrequency={handleOnSortByFrequency}
+              </Grid.Col>
+              <Grid.Col span={4}>
+                <Button fullWidth onClick={handleAdd}>
+                  {addText}
+                </Button>
+              </Grid.Col>
+            </Grid>
+            {/* CSV 파일 불러오기 박스 */}
+            <div className="flex flex-row items-center py-2 gap-x-4">
+              <Button component="label" htmlFor="csv-import">
+                {csvImportText}
+              </Button>
+              <input
+                type="file"
+                onChange={handleOnFileUploaded}
+                className="hidden"
+                id="csv-import"
+                accept=".csv"
               />
-              <div className="flex flex-col items-start w-full py-2 gap-x-4">
-                <div>{totalNumberText}</div>
-                <div className="flex items-center row gap-x-4">
-                  <Text>추첨갯수: </Text>
-                  <div className="flex gap-x-2">
-                    <Button
-                      size="xs"
-                      variant="default"
-                      disabled={pickSize === 0}
-                      radius={"xl"}
-                      onClick={handleOnPickSizeDecrement}
-                    >
-                      <IoRemove />
-                    </Button>
-                    <input
-                      value={pickSize}
-                      className="max-w-[40px] text-center rounded-md"
-                      type="text"
-                      onChange={handleOnPickSizeChange}
-                    />
-                    <Button
-                      size="xs"
-                      disabled={pickSize === itemMap.size}
-                      variant="default"
-                      radius={"xl"}
-                      onClick={handleOnPickSizeIncrement}
-                    >
-                      <IoAdd />
-                    </Button>
-                  </div>
+              <div>{csvFileName}</div>
+            </div>
+            <CandidateListBox
+              candidateList={itemMap}
+              handleOnFreqDecrement={handleOnFreqDecrement}
+              handleOnFreqIncrement={handleOnFreqIncrement}
+              handleOnRemoveItem={handleOnRemoveItem}
+              handleOnSortByCandidate={handleOnSortByCandidate}
+              handleOnSortByFrequency={handleOnSortByFrequency}
+            />
+            <div className="flex flex-col items-start w-full py-2 gap-x-4">
+              <div>{totalNumberText}</div>
+              <div className="flex items-center row gap-x-4">
+                <Text>추첨갯수: </Text>
+                <div className="flex gap-x-2">
+                  <Button
+                    gradient
+                    disabled={pickSize === 0}
+                    onClick={handleOnPickSizeDecrement}
+                  >
+                    <IoRemove />
+                  </Button>
+                  <input
+                    value={pickSize}
+                    className="max-w-[40px] text-center rounded-md"
+                    type="text"
+                    onChange={handleOnPickSizeChange}
+                  />
+                  <Button
+                    gradient
+                    disabled={pickSize === itemMap.size}
+                    onClick={handleOnPickSizeIncrement}
+                  >
+                    <IoAdd />
+                  </Button>
                 </div>
               </div>
+            </div>
 
-              <Button
-                onClick={handleSubmit}
-                leftIcon={<IoPlay />}
-                color="blue"
-                variant="filled"
-              >
-                {submitText}
-              </Button>
-            </Group>
-          </Paper>
+            <Button onClick={handleSubmit} gradient size="large">
+              <IoPlay />
+              {submitText}
+            </Button>
+          </Group>
         </motion.div>
-      </motion.div>
+      </motion.main>
     </motion.div>
   );
 };
