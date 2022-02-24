@@ -10,6 +10,7 @@ import Papa from "papaparse";
 import { Grid, Group, Paper, TextInput, Text } from "@mantine/core";
 import AppBar from "@components/AppBar";
 import Button from "@components/Button";
+import { parseInput } from "lib/InputParser";
 
 const Home: NextPage = () => {
   // Create router
@@ -32,6 +33,8 @@ const Home: NextPage = () => {
     // If nothing is entered, do nothing
     const candidate = item.trim();
     if (candidate === "") return;
+
+    const candidateArray = parseInput(item.trim());
 
     // Update itemList
     setItemMap((prev) => {

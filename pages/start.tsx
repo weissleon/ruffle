@@ -4,6 +4,12 @@ import React, { useEffect, useMemo } from "react";
 import { motion, Variants } from "framer-motion";
 import { useRouter } from "next/router";
 import { useIsNavigating } from "hooks/NavigationContext";
+// import AnimatingBackground from "@components/AnimatingBackground";
+import dynamic from "next/dynamic";
+
+const AnimatingBackground = dynamic(import("@components/AnimatingBackground"), {
+  ssr: false,
+});
 
 const mainTitle = `Ruffle`;
 
@@ -29,10 +35,16 @@ const Start: NextPage<Props> = ({}) => {
 
   return (
     <motion.div
-      className="flex flex-col items-center justify-center w-full min-h-screen gap-y-16"
+      className="flex flex-col items-center justify-center w-full min-h-screen overflow-hidden gap-y-16"
       initial="hidden"
       animate="show"
     >
+      {useMemo(
+        () => (
+          <AnimatingBackground />
+        ),
+        []
+      )}
       <motion.h1
         layoutId="title"
         transition={{
