@@ -11,6 +11,7 @@ import { ItemMap } from "../lib/helper";
 type RuffleData = {
   itemMap: ItemMap;
   pickSize: number;
+  winnerList?: string[];
 };
 
 type ProviderProps = {

@@ -1,7 +1,12 @@
 import type { NextPage } from "next";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { useRouter } from "next/router";
-import { ItemMap, sortMapByKey, sortMapByValue } from "../lib/helper";
+import {
+  generateWinnerList,
+  ItemMap,
+  sortMapByKey,
+  sortMapByValue,
+} from "../lib/helper";
 import CandidateListBox from "../components/CandidateListBox";
 import { useRuffleData } from "../hooks/RuffleDataContext";
 import { IoAdd, IoPlay, IoRemove } from "react-icons/io5";
@@ -52,9 +57,17 @@ const Home: NextPage = () => {
   function handleSubmit() {
     if (pickSize === 0) return;
 
+    const winnerList = generateWinnerList(itemMap, pickSize);
+
+    setRuffleData((draft) => ({
+      ...draft,
+      winnerList,
+    }));
+
     setRuffleData((draft) => {
       draft.itemMap = itemMap;
       draft.pickSize = pickSize;
+      draft.winnerList = winnerList;
     });
 
     router.push({
