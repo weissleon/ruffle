@@ -9,11 +9,6 @@ type Props = {};
 const Result: NextPage<Props> = () => {
   const { ruffleData } = useRuffleData();
 
-  const winnerList = generateWinnerList(
-    ruffleData.itemMap,
-    ruffleData.pickSize
-  );
-
   const title = "추첨 결과";
 
   return (
@@ -29,8 +24,9 @@ const Result: NextPage<Props> = () => {
                 <IoChevronBack />
               </div>
               <main className="flex flex-row gap-x-2 flex-wrap max-w-[1072px] gap-y-2">
-                {winnerList.length > 0 &&
-                  winnerList.map((content) => (
+                {ruffleData.winnerList &&
+                  ruffleData.winnerList.length > 0 &&
+                  ruffleData.winnerList.map((content) => (
                     <Card key={content} content={content} />
                   ))}
               </main>
