@@ -16,6 +16,8 @@ import { Grid, Group, Paper, TextInput, Text } from "@mantine/core";
 import AppBar from "@components/AppBar";
 import Button from "@components/Button";
 import { parseInput } from "lib/InputParser";
+import Portal from "@components/Portal";
+import Overlay from "@components/Overlay";
 
 const Home: NextPage = () => {
   // Create router
@@ -25,6 +27,7 @@ const Home: NextPage = () => {
   // A state to store current input
   const [item, setItem] = useState<string>("");
   const [csvFileName, setCsvFileName] = useState("");
+  const [portalOpened, setPortalOpened] = useState<boolean>(false);
 
   // A state to store item list
   // It is implemented with object so that frequencies are also stored
@@ -55,24 +58,25 @@ const Home: NextPage = () => {
   }
 
   function handleSubmit() {
-    if (pickSize === 0) return;
+    setPortalOpened((prev) => !prev);
+    // if (pickSize === 0) return;
 
-    const winnerList = generateWinnerList(itemMap, pickSize);
+    // const winnerList = generateWinnerList(itemMap, pickSize);
 
-    setRuffleData((draft) => ({
-      ...draft,
-      winnerList,
-    }));
+    // setRuffleData((draft) => ({
+    //   ...draft,
+    //   winnerList,
+    // }));
 
-    setRuffleData((draft) => {
-      draft.itemMap = itemMap;
-      draft.pickSize = pickSize;
-      draft.winnerList = winnerList;
-    });
+    // setRuffleData((draft) => {
+    //   draft.itemMap = itemMap;
+    //   draft.pickSize = pickSize;
+    //   draft.winnerList = winnerList;
+    // });
 
-    router.push({
-      pathname: "/result",
-    });
+    // router.push({
+    //   pathname: "/result",
+    // });
   }
 
   function handleOnSortByCandidate() {
@@ -207,6 +211,20 @@ const Home: NextPage = () => {
       animate="show"
       exit="exit"
     >
+      <Portal>
+        {portalOpened && (
+          <div className="absolute inset-0 ">
+            <Overlay />
+            <div
+              className="absolute z-[70]"
+              onClick={() => setPortalOpened(false)}
+            >
+              <div onClick={() => console.log("Content")}>Hello World</div>
+            </div>
+          </div>
+        )}
+      </Portal>
+
       <AppBar title={mainTitle} />
       <motion.main className="flex items-center justify-center py-4">
         {/* 컨텐트박스 */}
