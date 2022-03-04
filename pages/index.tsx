@@ -117,7 +117,7 @@ const Home: NextPage = () => {
       {/* Exit overlay */}
       <motion.div
         variants={exitOverlayVariants}
-        className="absolute inset-0  bg-white"
+        className="absolute inset-0 bg-white"
       />
 
       {/* Overlay */}
@@ -142,7 +142,7 @@ const Home: NextPage = () => {
               <LayoutGroup>
                 <motion.div
                   layout
-                  className="relative z-[80] min-h-[20rem] w-3/5 min-w-min max-w-xl overflow-hidden rounded-md bg-white "
+                  className="relative z-[80] min-h-[20rem] w-3/5 min-w-[320px] max-w-xl overflow-hidden rounded-md bg-white "
                 >
                   <AnimatePresence exitBeforeEnter>
                     {dialogs[dialogIndex]}

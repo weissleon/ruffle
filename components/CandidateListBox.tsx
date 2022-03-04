@@ -47,7 +47,7 @@ const CandidateListBox: VFC<Props> = ({
             <span className="select-none">빈도수</span>
           </div>
         </div>
-        <div className="overflow-y-auto">
+        <div className="w-full overflow-y-auto">
           {Array.from(candidateList.entries()).map((item, index) => {
             return (
               <CandidateListItem

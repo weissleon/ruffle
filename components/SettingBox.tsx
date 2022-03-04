@@ -183,7 +183,7 @@ const SettingBox: VFC<Props> = ({ onSubmit = () => {}, disabled = false }) => {
   return (
     <motion.div
       variants={mainVariants}
-      className={`relative flex w-3/5 min-w-max max-w-md flex-col overflow-hidden p-8 shadow-sm shadow-slate-300 ${
+      className={`relative flex w-3/5 min-w-[340px] max-w-md flex-col overflow-hidden p-8 shadow-sm shadow-slate-300 ${
         disabled ? "select-none" : ""
       } `}
     >
