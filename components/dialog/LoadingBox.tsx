@@ -1,7 +1,14 @@
-import LoadingAnimation from "@components/animation/LoadingAnimation";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import React, { useEffect, useState, VFC } from "react";
 import { IoClose } from "react-icons/io5";
+import dynamic from "next/dynamic";
+
+const LoadingAnimation = dynamic(
+  import("@components/animation/LoadingAnimation"),
+  {
+    ssr: false,
+  }
+);
 
 type Props = { isLoading?: boolean; onCancel?: () => void };
 
