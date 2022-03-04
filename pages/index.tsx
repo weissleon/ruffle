@@ -84,7 +84,7 @@ const Home: NextPage = () => {
 
     await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    router.push({
+    router.replace({
       pathname: "/result",
     });
   }
