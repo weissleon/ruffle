@@ -1,5 +1,6 @@
 import React, { MouseEvent, useState, VFC } from "react";
 import { motion, animate, useTransform, useMotionValue } from "framer-motion";
+import CardBack from "./card/CardBack";
 type Props = {
   content: string;
 };
@@ -40,7 +41,6 @@ const Card: VFC<Props> = ({ content }) => {
       restSpeed: 0.0001,
       duration: 2,
       onComplete: () => {
-        setIsFlipped(true);
         animate(transformInput, 1, {
           duration: 0.3,
           ease: "easeOut",
@@ -50,6 +50,7 @@ const Card: VFC<Props> = ({ content }) => {
           duration: 1.5,
           ease: "easeOut",
           onComplete: () => {
+            setIsFlipped(true);
             setIsAnimating(false);
           },
         });
@@ -66,21 +67,22 @@ const Card: VFC<Props> = ({ content }) => {
   return (
     <motion.div
       onClick={!isFlipped ? handleOnCardClick : undefined}
-      className="relative flex h-80 w-52 cursor-pointer items-center justify-center overflow-hidden rounded-md"
+      className="relative flex h-80 w-52 cursor-pointer items-center justify-center overflow-hidden rounded-md shadow-md"
       whileHover={{ scale: isAnimating ? undefined : 1.02 }}
       style={{
+        backfaceVisibility: "hidden",
         translateX: shake,
         scale: scale,
         translateY: raise,
       }}
     >
       <motion.div
-        className="absolute h-full w-full bg-white"
+        className="absolute z-20 h-full w-full bg-white"
         style={{ opacity: overlayOpacity }}
-      ></motion.div>
-      <motion.div className="flex h-full w-full items-center justify-center bg-blue-300"></motion.div>
+      />
+      {!isFlipped && <CardBack />}
       <motion.div
-        className="absolute z-10 flex h-full w-full select-none items-center justify-center bg-red-400"
+        className="white absolute z-30 flex h-full w-full select-none items-center justify-center"
         style={{
           opacity: contentOpacity,
         }}

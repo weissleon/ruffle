@@ -46,11 +46,11 @@ const LoadingBox: VFC<Props> = ({ isLoading = true, onCancel = () => {} }) => {
 
   return (
     <motion.div
+      className="relative h-full w-full  "
       variants={cardVariants}
       initial="hidden"
       animate="show"
       exit="exit"
-      className="relative  h-full w-full  "
     >
       {cancellable && isLoading && (
         <motion.div
@@ -66,21 +66,29 @@ const LoadingBox: VFC<Props> = ({ isLoading = true, onCancel = () => {} }) => {
           <LoadingAnimation isLoading={isLoading} />
         </div>
 
-        <AnimatePresence>
+        <AnimatePresence exitBeforeEnter={true}>
           {isLoading ? (
-            <motion.div
+            <motion.span
+              key={"loadingText"}
               className="text-xl font-semibold text-slate-700"
               variants={textVariants}
+              initial="hidden"
+              animate="show"
+              exit="exit"
             >
               {loadingText}
-            </motion.div>
+            </motion.span>
           ) : (
-            <motion.div
+            <motion.span
+              key={"completeText"}
               className="text-xl font-semibold text-teal-500"
               variants={textVariants}
+              initial="hidden"
+              animate="show"
+              exit="exit"
             >
               {completeText}
-            </motion.div>
+            </motion.span>
           )}
         </AnimatePresence>
       </div>

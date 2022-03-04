@@ -28,8 +28,8 @@ const Button: VFC<Props> = (props) => {
     () => ({
       hidden: { opacity: 0 },
       show: { opacity: 1 },
-      hover: { y: 0, scale: disabled ? 1 : 1.01 },
-      tap: { y: 0, scale: disabled ? 1 : 0.99 },
+      hover: { scale: disabled ? 1 : 1.01 },
+      tap: { scale: disabled ? 1 : 0.99 },
     }),
     [disabled]
   );
@@ -38,8 +38,8 @@ const Button: VFC<Props> = (props) => {
 
   return (
     <Element
-      className={`flex items-center justify-center px-4 disabled:from-slate-200 disabled:to-gray-200 ${
-        size === "md" ? "py-2" : " py-4"
+      className={`flex h-9 items-center justify-center px-4 disabled:from-slate-200 disabled:to-gray-200 ${
+        size === "md" ? "py-2" : "py-6"
       } cursor-pointer rounded-md font-bold text-white ${
         gradient
           ? "gap-x-3 bg-gradient-to-r from-blue-400 to-purple-400"
