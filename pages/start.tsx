@@ -35,7 +35,7 @@ const Start: NextPage<Props> = ({}) => {
 
   return (
     <motion.div
-      className="flex flex-col items-center justify-center w-full min-h-screen overflow-hidden gap-y-16"
+      className="flex min-h-screen w-full flex-col items-center justify-center gap-y-16 overflow-hidden"
       initial="hidden"
       animate="show"
     >
@@ -51,7 +51,7 @@ const Start: NextPage<Props> = ({}) => {
           layout: { ease: "easeInOut", duration: 0.5 },
         }}
         variants={titleVariants}
-        className="font-bold text-transparent select-none bg-slate-500 bg-clip-text from-purple-400 to-blue-400 bg-gradient-to-r"
+        className="select-none bg-slate-500 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text font-bold text-transparent"
       >
         {mainTitle}
       </motion.h1>

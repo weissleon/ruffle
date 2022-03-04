@@ -1,20 +1,53 @@
+// import Lottie from "@components/Lottie";
 import Portal from "@components/Portal";
-import React from "react";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
 
+const Lottie = dynamic(import("@components/animation/LoadingAnimation"), {
+  ssr: false,
+});
 type Props = {};
 
 const Test = (props: Props) => {
-  return (
-    <main>
-      <Portal>
-        <div className="absolute inset-0 z-20 backdrop-blur-sm ">
-          Your modal content
-        </div>
-      </Portal>
+  const [isNext, setIsNext] = useState<boolean>(true);
 
-      <button className="bg-green-400" onClick={() => {}}>
-        Open modal
-      </button>
+  return (
+    <main
+      onClick={() => setIsNext((prev) => !prev)}
+      className="absolute inset-0 flex items-center justify-center bg-slate-400"
+    >
+      <LayoutGroup>
+        <motion.div
+          layout
+          className="flex w-2/3 items-center justify-center bg-white will-change-transform"
+        >
+          <AnimatePresence exitBeforeEnter={true}>
+            {isNext ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                layout
+                key={1}
+              >
+                <Lottie />
+              </motion.div>
+            ) : (
+              <motion.div
+                layout
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1, transition: { delay: 1 } }}
+                exit={{ opacity: 0 }}
+                key={2}
+                className="h-16"
+              >
+                2
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </LayoutGroup>
     </main>
   );
 };

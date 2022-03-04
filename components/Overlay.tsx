@@ -6,7 +6,7 @@ type Props = {
 
 const Overlay: VFC<Props> = ({ onClick = () => {} }) => {
   return (
-    <div className="fixed z-[60] inset-0 backdrop-blur-sm" onClick={onClick} />
+    <div className="fixed inset-0 z-[60] backdrop-blur-sm" onClick={onClick} />
   );
 };
 

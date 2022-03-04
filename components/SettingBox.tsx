@@ -183,7 +183,7 @@ const SettingBox: VFC<Props> = ({ onSubmit = () => {}, disabled = false }) => {
   return (
     <motion.div
       variants={mainVariants}
-      className={`relative flex flex-col w-3/5 max-w-md p-8 overflow-hidden shadow-sm min-w-max shadow-slate-300 ${
+      className={`relative flex w-3/5 min-w-max max-w-md flex-col overflow-hidden p-8 shadow-sm shadow-slate-300 ${
         disabled ? "select-none" : ""
       } `}
     >
@@ -219,7 +219,7 @@ const SettingBox: VFC<Props> = ({ onSubmit = () => {}, disabled = false }) => {
           </Grid.Col>
         </Grid>
         {/* CSV 파일 불러오기 박스 */}
-        <div className="flex flex-row items-center py-2 gap-x-4">
+        <div className="flex flex-row items-center gap-x-4 py-2">
           <Button component="label" htmlFor="csv-import">
             {csvImportText}
           </Button>
@@ -240,9 +240,9 @@ const SettingBox: VFC<Props> = ({ onSubmit = () => {}, disabled = false }) => {
           handleOnSortByCandidate={handleOnSortByCandidate}
           handleOnSortByFrequency={handleOnSortByFrequency}
         />
-        <div className="flex flex-col items-start w-full py-2 gap-x-4">
+        <div className="flex w-full flex-col items-start gap-x-4 py-2">
           <div>{totalNumberText}</div>
-          <div className="flex items-center row gap-x-4">
+          <div className="row flex items-center gap-x-4">
             <Text>추첨갯수: </Text>
             <div className="flex gap-x-2">
               <Button
@@ -254,7 +254,7 @@ const SettingBox: VFC<Props> = ({ onSubmit = () => {}, disabled = false }) => {
               </Button>
               <input
                 value={pickSize}
-                className="max-w-[40px] text-center rounded-md select-none"
+                className="max-w-[40px] select-none rounded-md text-center"
                 type="text"
                 onChange={handleOnPickSizeChange}
               />

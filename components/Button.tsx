@@ -38,12 +38,12 @@ const Button: VFC<Props> = (props) => {
 
   return (
     <Element
-      className={`disabled:from-slate-200 disabled:to-gray-200 flex items-center justify-center px-4 ${
+      className={`flex items-center justify-center px-4 disabled:from-slate-200 disabled:to-gray-200 ${
         size === "md" ? "py-2" : " py-4"
-      } font-bold text-white rounded-md cursor-pointer ${
+      } cursor-pointer rounded-md font-bold text-white ${
         gradient
-          ? "bg-gradient-to-r from-blue-400 gap-x-3 to-purple-400"
-          : "bg-white outline outline-1 text-slate-600 outline-slate-300"
+          ? "gap-x-3 bg-gradient-to-r from-blue-400 to-purple-400"
+          : "bg-white text-slate-600 outline outline-1 outline-slate-300"
       } ${fullWidth && "w-full"} ${disabled && "cursor-not-allowed"}`}
       variants={buttonVariants}
       initial="hidden"

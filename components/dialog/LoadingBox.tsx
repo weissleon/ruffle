@@ -1,3 +1,4 @@
+import LoadingAnimation from "@components/animation/LoadingAnimation";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import React, { useEffect, useState, VFC } from "react";
 import { IoClose } from "react-icons/io5";
@@ -42,24 +43,40 @@ const LoadingBox: VFC<Props> = ({ isLoading = true, onCancel = () => {} }) => {
       initial="hidden"
       animate="show"
       exit="exit"
-      className="relative w-full bg-blue-400 h-80"
+      className="relative  h-full w-full  "
     >
-      {cancellable && (
+      {cancellable && isLoading && (
         <motion.div
           variants={textVariants}
-          className="absolute cursor-pointer top-4 right-4"
+          className="absolute top-4 right-4 cursor-pointer"
           onClick={onCancel}
         >
           <IoClose />
         </motion.div>
       )}
-      <AnimatePresence>
-        {isLoading ? (
-          <motion.div variants={textVariants}>{loadingText}</motion.div>
-        ) : (
-          <motion.div variants={textVariants}>{completeText}</motion.div>
-        )}
-      </AnimatePresence>
+      <div className="flex flex-col items-center justify-center p-12">
+        <div className="h-56">
+          <LoadingAnimation isLoading={isLoading} />
+        </div>
+
+        <AnimatePresence>
+          {isLoading ? (
+            <motion.div
+              className="text-xl font-semibold text-slate-700"
+              variants={textVariants}
+            >
+              {loadingText}
+            </motion.div>
+          ) : (
+            <motion.div
+              className="text-xl font-semibold text-teal-500"
+              variants={textVariants}
+            >
+              {completeText}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </motion.div>
   );
 };
