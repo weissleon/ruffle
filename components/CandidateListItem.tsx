@@ -31,29 +31,29 @@ const CandidateListItem = forwardRef<HTMLDivElement, Props>((props, ref) => {
       ref={ref}
       onMouseOver={handleOnHover}
       onMouseLeave={handleOnHoverLeave}
-      className="grid content-center w-full grid-cols-3 px-4 py-2 align-middle border-b border-solid text-slate-700 border-slate-200"
+      className="grid w-full grid-cols-3 content-center border-b border-solid border-slate-200 px-4 py-2 align-middle text-slate-700"
       key={item.content}
     >
       {/* Content */}
-      <div className="w-full break-words justify-self-start">
+      <div className="w-full justify-self-start break-words">
         {item.content}
       </div>
 
       {/* Frequency */}
-      <div className="flex flex-row items-center justify-center w-full gap-2">
+      <div className="flex w-full flex-row items-center justify-center gap-2">
         <button
-          className="flex items-center justify-center w-6 h-6 border border-transparent rounded-full cursor-pointer hover:border-slate-200 active:border-slate-300"
+          className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border border-transparent hover:border-slate-200 active:border-slate-300"
           onClick={() => {
             onDecrementClicked(item.content);
           }}
         >
           <IoRemove />
         </button>
-        <div className="flex items-center justify-end w-6 h-6">
-          <span className="leading-none align-middle">{item.frequency}</span>
+        <div className="flex h-6 w-6 items-center justify-end">
+          <span className="align-middle leading-none">{item.frequency}</span>
         </div>
         <button
-          className="flex items-center justify-center w-6 h-6 ml-2 border border-transparent rounded-full cursor-pointer hover:border-slate-200 active:border-slate-300"
+          className="ml-2 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border border-transparent hover:border-slate-200 active:border-slate-300"
           onClick={() => {
             onIncrementClicked(item.content);
           }}
@@ -67,7 +67,7 @@ const CandidateListItem = forwardRef<HTMLDivElement, Props>((props, ref) => {
         }}
         className={`${
           isHovered ? "flex" : "hidden"
-        } justify-self-end text-slate-400 cursor-pointer justify-center items-center text-center text-lg w-6 h-6`}
+        } h-6 w-6 cursor-pointer items-center justify-center justify-self-end text-center text-lg text-slate-400`}
       >
         <span className="select-none hover:text-slate-500">
           <IoTrash />

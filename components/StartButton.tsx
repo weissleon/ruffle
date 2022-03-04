@@ -46,7 +46,7 @@ const StartButton: VFC<Props> = ({
   return (
     <motion.button
       onClick={handleOnClick}
-      className="relative flex flex-row items-center justify-center px-8 py-4 text-xl text-white select-none w-min h-min bg-gradient-to-r from-blue-400 to-purple-400 rounded-xl"
+      className="relative flex h-min w-min select-none flex-row items-center justify-center rounded-xl bg-gradient-to-r from-blue-400 to-purple-400 px-8 py-4 text-xl text-white"
       variants={startButtonVariants}
       initial="hidden"
       whileHover="hover"
@@ -54,7 +54,7 @@ const StartButton: VFC<Props> = ({
       animate="show"
       exit="exit"
     >
-      {leftIcon ? <div className="relative w-8 h-8">{leftIcon}</div> : null}
+      {leftIcon ? <div className="relative h-8 w-8">{leftIcon}</div> : null}
       {children}
     </motion.button>
   );

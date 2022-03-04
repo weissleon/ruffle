@@ -75,7 +75,7 @@ const AnimatingBackground: VFC<Props> = ({}) => {
     <motion.div
       variants={AnimatingBackgroundVariants}
       exit={"exit"}
-      className="absolute inset-0 overflow-hidden -z-10"
+      className="absolute inset-0 -z-10 overflow-hidden"
     >
       {iconSettings.map((iconProps, index) => {
         const {
@@ -111,10 +111,10 @@ const AnimatingBackground: VFC<Props> = ({}) => {
             }}
           >
             <Icon
-              className={`w-full h-full ${
+              className={`h-full w-full ${
                 color === "blue"
-                  ? "stroke-blue-400 fill-blue-400"
-                  : "stroke-purple-400 fill-purple-400"
+                  ? "fill-blue-400 stroke-blue-400"
+                  : "fill-purple-400 stroke-purple-400"
               }`}
             />
           </motion.div>

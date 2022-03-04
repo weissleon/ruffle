@@ -32,16 +32,16 @@ const CandidateListBox: VFC<Props> = ({
 
   return (
     <Paper shadow={"xs"}>
-      <div className="w-full relative h-[200px]  flex flex-col bg-white">
-        <div className="grid items-center w-full grid-cols-3 font-bold shadow-sm justify-items-center bg-slate-100">
+      <div className="relative flex h-[200px]  w-full flex-col bg-white">
+        <div className="grid w-full grid-cols-3 items-center justify-items-center bg-slate-100 font-bold shadow-sm">
           <div
-            className="flex justify-center w-full px-4 py-2 cursor-pointer hover:bg-gray-200"
+            className="flex w-full cursor-pointer justify-center px-4 py-2 hover:bg-gray-200"
             onClick={handleOnSortByCandidate}
           >
             <span className="select-none">후보</span>
           </div>
           <div
-            className="flex justify-center w-full px-4 py-2 cursor-pointer hover:bg-gray-200"
+            className="flex w-full cursor-pointer justify-center px-4 py-2 hover:bg-gray-200"
             onClick={handleOnSortByFrequency}
           >
             <span className="select-none">빈도수</span>

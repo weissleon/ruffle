@@ -66,7 +66,7 @@ const Card: VFC<Props> = ({ content }) => {
   return (
     <motion.div
       onClick={!isFlipped ? handleOnCardClick : undefined}
-      className="relative flex items-center justify-center overflow-hidden rounded-md cursor-pointer w-52 h-80"
+      className="relative flex h-80 w-52 cursor-pointer items-center justify-center overflow-hidden rounded-md"
       whileHover={{ scale: isAnimating ? undefined : 1.02 }}
       style={{
         translateX: shake,
@@ -75,12 +75,12 @@ const Card: VFC<Props> = ({ content }) => {
       }}
     >
       <motion.div
-        className="absolute w-full h-full bg-white"
+        className="absolute h-full w-full bg-white"
         style={{ opacity: overlayOpacity }}
       ></motion.div>
-      <motion.div className="flex items-center justify-center w-full h-full bg-blue-300"></motion.div>
+      <motion.div className="flex h-full w-full items-center justify-center bg-blue-300"></motion.div>
       <motion.div
-        className="absolute z-10 flex items-center justify-center w-full h-full bg-red-400 select-none"
+        className="absolute z-10 flex h-full w-full select-none items-center justify-center bg-red-400"
         style={{
           opacity: contentOpacity,
         }}

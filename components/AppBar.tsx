@@ -24,21 +24,21 @@ const AppBar: VFC<Props> = ({ title, showTitle = true }) => {
   return (
     <motion.div
       layout
-      className="relative flex flex-row items-center justify-center h-14"
+      className="relative flex h-14 flex-row items-center justify-center"
       initial="hidden"
       animate="show"
       exit={"exit"}
     >
       <motion.div
         variants={appBarVariants}
-        className="relative z-50 w-full h-full shadow-sm shadow-slate-300"
+        className="relative z-50 h-full w-full shadow-sm shadow-slate-300"
       ></motion.div>
       <motion.h1
         layoutId="title"
         transition={{
           layout: { ease: "easeInOut", duration: 0.5 },
         }}
-        className="absolute z-50 font-bold text-transparent h-min w-min bg-slate-500 bg-clip-text from-purple-400 to-blue-400 bg-gradient-to-r"
+        className="absolute z-50 h-min w-min bg-slate-500 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text font-bold text-transparent"
       >
         {title}
       </motion.h1>
