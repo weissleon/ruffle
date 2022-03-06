@@ -12,6 +12,7 @@
     "@mantine/hooks": "^3.6.7",
     "@mantine/next": "^3.6.7",
     "framer-motion": "^6.2.3",
+    "gsap": "^3.9.1",
     "immer": "^9.0.12",
     "lottie-web": "^5.9.0",
     "next": "^12.1.0",

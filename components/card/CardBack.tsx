@@ -1,5 +1,6 @@
 import React, { forwardRef, useCallback, useEffect, useRef, VFC } from "react";
 import { AnimationControls, motion, useAnimation } from "framer-motion";
+import GlowingFrame from "./GlowingFrame";
 type Props = {};
 
 const CardBack = (props: Props) => {
@@ -57,9 +58,6 @@ const CardBack = (props: Props) => {
   return (
     <div
       ref={cardContainerRef}
-      style={{
-        backfaceVisibility: "hidden",
-      }}
       className="relative flex h-full w-full items-center justify-center overflow-hidden"
     >
       <span
@@ -70,6 +68,10 @@ const CardBack = (props: Props) => {
       >
         R
       </span>
+
+      <div className="absolute z-[12] h-full w-full">
+        <GlowingFrame />
+      </div>
 
       <div className="absolute inset-0">
         <div className="absolute h-full w-full bg-blue-400" />

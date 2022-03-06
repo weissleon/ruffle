@@ -7,8 +7,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
   // If the page is reloaded, reidrect to the start page
   if (
     isReloaded &&
-    req.nextUrl.pathname !== "/start" &&
-    req.nextUrl.pathname !== "/test"
+    (req.nextUrl.pathname === "/" || req.nextUrl.pathname === "/result")
   ) {
     const url = req.nextUrl.clone();
     url.pathname = "/start";
