@@ -6,6 +6,7 @@ import { useRuffleData } from "../../hooks/RuffleDataContext";
 import { motion, Variants } from "framer-motion";
 import Button from "@components/Button";
 import { useRouter } from "next/router";
+import Confetti from "@components/Confetti";
 
 const pageVariants: Variants = {
   hidden: { opacity: 0 },
@@ -29,8 +30,9 @@ const Result: NextPage<Props> = () => {
       variants={pageVariants}
       initial="hidden"
       animate="show"
-      className="flex h-screen flex-col items-center justify-center gap-y-12 bg-gradient-to-tr from-slate-50/50 to-slate-100/50"
+      className="flex h-screen flex-col items-center justify-center gap-y-12"
     >
+      {/* <div className="absolute inset-0 -z-20 bg-gradient-to-tr from-slate-50/50 to-slate-100/50"></div> */}
       <div className="mt-8 w-56">
         <Button onClick={handleOnRestart} fullWidth size="large">
           {restartText}
@@ -42,9 +44,9 @@ const Result: NextPage<Props> = () => {
       </div>
       <div className="flex items-center justify-center">
         <div className="flex flex-row items-center justify-center gap-x-4">
-          <div className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full text-lg hover:bg-slate-100 active:bg-slate-200">
+          {/* <div className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full text-lg hover:bg-slate-100 active:bg-slate-200">
             <IoChevronBack />
-          </div>
+          </div> */}
           <main className="flex max-w-[1072px] flex-row flex-wrap gap-x-2 gap-y-2">
             {ruffleData.winnerList &&
               ruffleData.winnerList.length > 0 &&
@@ -52,11 +54,12 @@ const Result: NextPage<Props> = () => {
                 <Card key={content} content={content} />
               ))}
           </main>
-          <div className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full text-lg hover:bg-slate-100 active:bg-slate-200">
+          {/* <div className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full text-lg hover:bg-slate-100 active:bg-slate-200">
             <IoChevronForward />
-          </div>
+          </div> */}
         </div>
       </div>
+      <Confetti />
     </motion.div>
   );
 };
