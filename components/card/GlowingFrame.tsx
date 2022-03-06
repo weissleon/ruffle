@@ -1,18 +1,9 @@
 import React, { useEffect, useRef, VFC } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import gsap from "gsap";
+
 type Props = {};
-
 const GlowingFrame: VFC<Props> = () => {
-  return <Frame />;
-};
-
-export default GlowingFrame;
-
-type FrameProps = {
-  intensity?: number;
-};
-const Frame: VFC<FrameProps> = () => {
   const gaussianBlurRef = useRef(null);
 
   useEffect(() => {
@@ -67,3 +58,5 @@ const Frame: VFC<FrameProps> = () => {
     </motion.svg>
   );
 };
+
+export default GlowingFrame;
