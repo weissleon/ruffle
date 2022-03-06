@@ -109,7 +109,7 @@ const Home: NextPage = () => {
 
   return (
     <motion.div
-      className="relative grid h-screen w-full grid-flow-row grid-rows-[56px_minmax(auto,1fr)]"
+      className="absolute inset-0 grid grid-flow-row grid-rows-[56px_minmax(auto,1fr)]"
       initial="hidden"
       animate="show"
       exit="exit"
