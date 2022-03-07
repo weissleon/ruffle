@@ -136,9 +136,9 @@ const Home: NextPage = () => {
       <Portal>
         <AnimatePresence>
           {portalOpened && (
-            <div className="absolute inset-0 flex items-center justify-center ">
+            <motion.div className="absolute inset-0 flex items-center justify-center ">
               {/* <Overlay /> */}
-              <div className="absolute inset-0 z-[70]"></div>
+              <motion.div className="absolute inset-0 z-[70]"></motion.div>
               <LayoutGroup>
                 <motion.div
                   layout
@@ -149,7 +149,7 @@ const Home: NextPage = () => {
                   </AnimatePresence>
                 </motion.div>
               </LayoutGroup>
-            </div>
+            </motion.div>
           )}
         </AnimatePresence>
       </Portal>

@@ -219,7 +219,7 @@ const SettingBox: VFC<Props> = ({ onSubmit = () => {}, disabled = false }) => {
           </Grid.Col>
         </Grid>
         {/* CSV 파일 불러오기 박스 */}
-        <div className="flex flex-row items-center gap-x-4 py-2">
+        <motion.div className="flex flex-row items-center gap-x-4 py-2">
           <Button component="label" htmlFor="csv-import">
             {csvImportText}
           </Button>
@@ -230,8 +230,8 @@ const SettingBox: VFC<Props> = ({ onSubmit = () => {}, disabled = false }) => {
             id="csv-import"
             accept=".csv"
           />
-          <div>{csvFileName}</div>
-        </div>
+          <motion.div>{csvFileName}</motion.div>
+        </motion.div>
         <CandidateListBox
           candidateList={itemMap}
           handleOnFreqDecrement={handleOnFreqDecrement}
@@ -240,11 +240,11 @@ const SettingBox: VFC<Props> = ({ onSubmit = () => {}, disabled = false }) => {
           handleOnSortByCandidate={handleOnSortByCandidate}
           handleOnSortByFrequency={handleOnSortByFrequency}
         />
-        <div className="flex w-full flex-col items-start gap-x-4 py-2">
-          <div>{totalNumberText}</div>
-          <div className="row flex items-center gap-x-4">
+        <motion.div className="flex w-full flex-col items-start gap-x-4 py-2">
+          <motion.div>{totalNumberText}</motion.div>
+          <motion.div className="row flex items-center gap-x-4">
             <Text>추첨갯수: </Text>
-            <div className="flex gap-x-2">
+            <motion.div className="flex gap-x-2">
               <Button
                 gradient
                 disabled={pickSize === 0}
@@ -265,9 +265,9 @@ const SettingBox: VFC<Props> = ({ onSubmit = () => {}, disabled = false }) => {
               >
                 <IoAdd />
               </Button>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
         <Button onClick={handleOnSubmit} gradient size="large">
           <IoPlay />

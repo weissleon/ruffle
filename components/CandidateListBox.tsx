@@ -2,6 +2,7 @@ import { Paper } from "@mantine/core";
 import React, { useEffect, useRef, VFC } from "react";
 import { ItemMap } from "../lib/helper";
 import CandidateListItem from "./CandidateListItem";
+import { motion } from "framer-motion";
 
 type Props = {
   candidateList: ItemMap;
@@ -32,22 +33,22 @@ const CandidateListBox: VFC<Props> = ({
 
   return (
     <Paper shadow={"xs"}>
-      <div className="relative flex h-[200px]  w-full flex-col bg-white">
-        <div className="grid w-full grid-cols-3 items-center justify-items-center bg-slate-100 font-bold shadow-sm">
-          <div
+      <motion.div className="relative flex h-[200px]  w-full flex-col bg-white">
+        <motion.div className="grid w-full grid-cols-3 items-center justify-items-center bg-slate-100 font-bold shadow-sm">
+          <motion.div
             className="flex w-full cursor-pointer justify-center px-4 py-2 hover:bg-gray-200"
             onClick={handleOnSortByCandidate}
           >
             <span className="select-none">후보</span>
-          </div>
-          <div
+          </motion.div>
+          <motion.div
             className="flex w-full cursor-pointer justify-center px-4 py-2 hover:bg-gray-200"
             onClick={handleOnSortByFrequency}
           >
             <span className="select-none">빈도수</span>
-          </div>
-        </div>
-        <div className="w-full overflow-y-auto">
+          </motion.div>
+        </motion.div>
+        <motion.div className="w-full overflow-y-auto">
           {Array.from(candidateList.entries()).map((item, index) => {
             return (
               <CandidateListItem
@@ -60,8 +61,8 @@ const CandidateListBox: VFC<Props> = ({
               />
             );
           })}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </Paper>
   );
 };

@@ -1,4 +1,5 @@
 import React, { MouseEvent, VFC } from "react";
+import { motion } from "framer-motion";
 
 type Props = {
   onClick?: (event: MouseEvent) => void;
@@ -6,7 +7,10 @@ type Props = {
 
 const Overlay: VFC<Props> = ({ onClick = () => {} }) => {
   return (
-    <div className="fixed inset-0 z-[60] backdrop-blur-sm" onClick={onClick} />
+    <motion.div
+      className="fixed inset-0 z-[60] backdrop-blur-sm"
+      onClick={onClick}
+    />
   );
 };
 
