@@ -56,7 +56,7 @@ const CardBack = (props: Props) => {
   }, [move]);
 
   return (
-    <div
+    <motion.div
       ref={cardContainerRef}
       className="relative flex h-full w-full items-center justify-center overflow-hidden"
     >
@@ -69,13 +69,13 @@ const CardBack = (props: Props) => {
         R
       </span>
 
-      <div className="absolute z-[12] h-full w-full">
+      <motion.div className="absolute z-[12] h-full w-full">
         <GlowingFrame />
-      </div>
+      </motion.div>
 
-      <div className="absolute inset-0">
-        <div className="absolute h-full w-full bg-blue-400" />
-        <div className="blur-[40px]">
+      <motion.div className="absolute inset-0">
+        <motion.div className="absolute h-full w-full bg-blue-400" />
+        <motion.div className="blur-[40px]">
           <Circle
             ref={(ref) => (circlesRef.current[0] = ref)}
             control={controlsRef.current[0]}
@@ -91,9 +91,9 @@ const CardBack = (props: Props) => {
             control={controlsRef.current[2]}
             color="#c084fc"
           />
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 

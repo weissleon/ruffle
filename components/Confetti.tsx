@@ -1,23 +1,24 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import confetti, { Options, GlobalOptions } from "canvas-confetti";
 
 type Props = {};
 
 const globalOptions: GlobalOptions = {
   resize: true,
-  useWorker: true,
+  useWorker: false,
 };
 
 const Confetti = (props: Props) => {
   const containerRef = useRef<HTMLCanvasElement>(null);
 
-  function launchConfetti(instance: confetti.CreateTypes) {
+  const launchConfetti = useCallback((instance: confetti.CreateTypes) => {
     if (!instance) return;
 
     const randX = Math.random() * 0.7 + 0.3;
     const randY = Math.random() - 0.2;
 
     const options: Options = {
+      zIndex: -50,
       particleCount: 120,
       startVelocity: 20,
       spread: 1000,
@@ -29,7 +30,7 @@ const Confetti = (props: Props) => {
     };
 
     instance(options);
-  }
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -40,14 +41,13 @@ const Confetti = (props: Props) => {
 
     const intervalId = setInterval(() => launchConfetti(confettiInstance), 500);
     return () => {
-      confetti.reset();
       clearInterval(intervalId);
     };
-  }, []);
+  }, [launchConfetti]);
 
   return (
     <canvas
-      className="absolute -z-10 h-full w-full"
+      className="absolute -z-20 h-full w-full"
       ref={containerRef}
       id="confetti-container"
     />

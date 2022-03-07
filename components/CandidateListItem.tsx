@@ -1,6 +1,7 @@
 import { forwardRef, Ref } from "react";
 import { useState, VFC } from "react";
 import { IoAdd, IoRemove, IoTrash } from "react-icons/io5";
+import { motion } from "framer-motion";
 
 type Props = {
   item: Item;
@@ -27,7 +28,7 @@ const CandidateListItem = forwardRef<HTMLDivElement, Props>((props, ref) => {
 
   return (
     // Main Container
-    <div
+    <motion.div
       ref={ref}
       onMouseOver={handleOnHover}
       onMouseLeave={handleOnHoverLeave}
@@ -35,12 +36,12 @@ const CandidateListItem = forwardRef<HTMLDivElement, Props>((props, ref) => {
       key={item.content}
     >
       {/* Content */}
-      <div className="w-full justify-self-start break-words">
+      <motion.div className="w-full justify-self-start break-words">
         {item.content}
-      </div>
+      </motion.div>
 
       {/* Frequency */}
-      <div className="flex w-full flex-row items-center justify-center gap-2">
+      <motion.div className="flex w-full flex-row items-center justify-center gap-2">
         <button
           className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border border-transparent hover:border-slate-200 active:border-slate-300"
           onClick={() => {
@@ -49,9 +50,9 @@ const CandidateListItem = forwardRef<HTMLDivElement, Props>((props, ref) => {
         >
           <IoRemove />
         </button>
-        <div className="flex h-6 w-6 items-center justify-end">
+        <motion.div className="flex h-6 w-6 items-center justify-end">
           <span className="align-middle leading-none">{item.frequency}</span>
-        </div>
+        </motion.div>
         <button
           className="ml-2 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full border border-transparent hover:border-slate-200 active:border-slate-300"
           onClick={() => {
@@ -60,8 +61,8 @@ const CandidateListItem = forwardRef<HTMLDivElement, Props>((props, ref) => {
         >
           <IoAdd />
         </button>
-      </div>
-      <div
+      </motion.div>
+      <motion.div
         onClick={() => {
           onRemoveClicked(item.content);
         }}
@@ -72,8 +73,8 @@ const CandidateListItem = forwardRef<HTMLDivElement, Props>((props, ref) => {
         <span className="select-none hover:text-slate-500">
           <IoTrash />
         </span>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 });
 
