@@ -3,7 +3,7 @@
 # Introduction
 
 **Official Link:**
-[https://ruffle-weissleon.vercel.app/start](https://ruffle-weissleon.vercel.app)
+[https://ruffle-weissleon.vercel.app](https://ruffle-weissleon.vercel.app/start)
 
 > ✨ 누구에게는 특별한 추첨일 수 있잖아요?
 
